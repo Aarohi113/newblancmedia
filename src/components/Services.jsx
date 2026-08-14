@@ -8,6 +8,15 @@ const smoothTransition = (delay = 0) => ({
   delay,
 });
 
+const slideFromLeft = {
+  hidden: { opacity: 0, x: -140 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: smoothTransition(delay),
+  }),
+};
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: (delay = 0) => ({
@@ -18,7 +27,7 @@ const fadeInUp = {
 };
 
 export default function Services({ badgeDocked = false }) {
-  const viewportSettings = { once: true, amount: 0.2 };
+  const viewportSettings = { once: false, amount: 0.2 };
   const [activeCard, setActiveCard] = useState(null);
 
   const toggleCard = (id) => {
@@ -33,7 +42,7 @@ export default function Services({ badgeDocked = false }) {
         whileInView="visible"
         viewport={viewportSettings}
         custom={0.1}
-        variants={fadeInUp}
+        variants={slideFromLeft}
       >
         <span className="eyebrow eyebrow--static">
           <span className="rule"></span>

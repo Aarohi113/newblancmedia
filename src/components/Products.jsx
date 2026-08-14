@@ -3,21 +3,21 @@ import React, { useState } from 'react';
 const accordionData = [
   {
     id: 1,
-    label: "Market & Brand Audit",
+    label: "Brand Audit",
     emoji: "🔍",
     desc: "Comprehensive market, competitor, audience, and website analysis to uncover untapped SEO and growth opportunities.",
     bullets: ["Competitor Benchmark", "Audience Insights", "Technical SEO Audit"]
   },
   {
     id: 2,
-    label: "SEO & Marketing Strategy",
+    label: "Marketing Strategy",
     emoji: "🧭",
     desc: "A custom, data-driven roadmap spanning organic search, performance ads, content marketing, and conversion funnels.",
     bullets: ["Keyword & Intent Mapping", "Paid Media Roadmap", "Conversion Architecture"]
   },
   {
     id: 3,
-    label: "Content & Campaign Creation",
+    label: " Campaign Creation",
     emoji: "🎨",
     desc: "High-converting ad creatives, SEO-optimized articles, compelling social media assets, and high-impact landing pages.",
     bullets: ["Ad Creative Studio", "SEO Content Scaling", "Landing Page Design"]
@@ -31,7 +31,7 @@ const accordionData = [
   },
   {
     id: 5,
-    label: "Data & Performance Optimization",
+    label: "Performance Optimization",
     emoji: "📊",
     desc: "Continuous A/B testing, rank tracking, conversion rate optimization (CRO), and transparent performance analytics.",
     bullets: ["CRO & Funnel Testing", "ROI Analytics", "Weekly Growth Reports"]
