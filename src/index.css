@@ -771,18 +771,18 @@ body {
 
   /* 2. Hero Section Mobile */
   .hero {
-    padding: clamp(3.2rem, 5vh, 4.5rem) 5vw 4vh 5vw;
+    padding: 5.2rem 5vw 2.5rem 5vw;
     min-height: 90vh;
   }
 
   .eyebrow {
-    margin-top: 0.1rem;
-    margin-bottom: 0.3rem;
-    font-size: 0.72rem;
+    margin-top: 0;
+    margin-bottom: 3.4rem;
+    font-size: 0.75rem;
   }
 
   .hero-heading {
-    margin-left: clamp(0.8rem, 3vw, 1.5rem);
+    margin-left: clamp(0.5rem, 2.5vw, 1.2rem);
   }
 
   .hero-line-one,
@@ -796,13 +796,13 @@ body {
   }
 
   .normal-text {
-    font-size: clamp(1.65rem, 7.5vw, 2.5rem);
+    font-size: clamp(1.85rem, 8.5vw, 2.7rem);
     line-height: 1;
   }
 
   .large-word {
-    font-size: clamp(2.8rem, 13vw, 4.4rem);
-    line-height: 0.88;
+    font-size: clamp(3.2rem, 15vw, 5rem);
+    line-height: 0.99;
   }
 
   /* 4 Distinct Lines on Mobile:
@@ -816,8 +816,8 @@ body {
 
   .hero-line-two .large-word.marketing {
     color: transparent;
-    -webkit-text-stroke: 2.5px #FF5A1F;
-    font-size: clamp(3rem, 14vw, 4.8rem);
+    -webkit-text-stroke: 3px #FF5A1F;
+    font-size: clamp(3.4rem, 15vw, 5.4rem);
     width: 100%;
   }
 
@@ -828,13 +828,13 @@ body {
   /* Hero Paragraph & Floating Badge Text Wrapping on Mobile */
   .hero-sub {
     display: block;
-    margin-top: 0.2rem;
+    margin-top: 2.6rem;
   }
 
   .spin-badge-placeholder {
     float: left;
     margin-right: 0.85rem;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.3rem;
     width: 82px;
     height: 82px;
   }
@@ -856,8 +856,8 @@ body {
     display: block;
     text-align: left;
     max-width: 100%;
-    font-size: 0.9rem;
-    line-height: 1.45;
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .hero-sub p {
