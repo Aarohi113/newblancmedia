@@ -153,7 +153,7 @@ body {
 
 .large-word.marketing {
   color: transparent;
-  -webkit-text-stroke: 4px var(--paper);
+  -webkit-text-stroke: 4px #FF5A1F;
   font-size: calc(var(--fs-large) * 1.15);
   line-height: 0.88;
 }
@@ -815,7 +815,8 @@ body {
   }
 
   .hero-line-two .large-word.marketing {
-    -webkit-text-stroke: 2.5px var(--paper);
+    color: transparent;
+    -webkit-text-stroke: 2.5px #FF5A1F;
     font-size: clamp(3rem, 14vw, 4.8rem);
     width: 100%;
   }
