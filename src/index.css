@@ -7,7 +7,7 @@
   --accent-soft: #1111120d;
   --rule: rgba(17, 17, 18, 0.14);
 
-  --fs-large: clamp(2.5rem, 13vw, 7.2rem);
+  --fs-large: clamp(3rem, 14.5vw, 8.2rem);
   --fs-normal: calc(var(--fs-large) * 0.48);
   --fs-eyebrow: clamp(0.65rem, 1.4vw, 0.8rem);
   --fs-body: clamp(0.9rem, 1.8vw, 1rem);
@@ -88,7 +88,7 @@ body {
   align-items: center;
   gap: 0.9rem;
   margin-top: clamp(1.5rem, 4vh, 3.5rem);
-  margin-bottom: clamp(1.4rem, 5vh, 3.2rem);
+  margin-bottom: clamp(2rem, 6vh, 4.2rem);
   font-family: 'Manrope', sans-serif;
   font-size: var(--fs-eyebrow);
   letter-spacing: 0.14em;
@@ -129,14 +129,14 @@ body {
   justify-content: flex-start;
   gap: var(--gap-word);
   flex-wrap: wrap;
-  margin-top: clamp(0.1rem, 1vh, 0.4rem);
+  margin-top: clamp(0.1rem, 0.5vh, 0.35rem);
 }
 
 .normal-text {
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
   font-size: var(--fs-normal);
-  line-height: 1;
+  line-height: 0.95;
   color: var(--paper);
   white-space: nowrap;
 }
@@ -145,7 +145,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-size: var(--fs-large);
-  line-height: 0.75;
+  line-height: 0.85;
   letter-spacing: -0.02em;
   color: var(--paper);
   white-space: nowrap;
@@ -155,7 +155,7 @@ body {
   color: transparent;
   -webkit-text-stroke: 4px var(--paper);
   font-size: calc(var(--fs-large) * 1.15);
-  line-height: 0.85;
+  line-height: 0.88;
 }
 
 .hero-sub {
@@ -163,17 +163,21 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  margin-top: clamp(1.2rem, 3vh, 3.8rem);
+  margin-top: clamp(2.5rem, 6vh, 5.5rem);
 }
 
 .hero-sub p {
   font-family: 'Manrope', sans-serif;
   font-weight: 400;
   font-size: var(--fs-body);
-  line-height: 1.6;
+  line-height: 1.8;
   color: var(--paper-dim);
   max-width: 44ch;
   text-align: right;
+}
+
+.hero-desc-mobile {
+  display: none;
 }
 
 .spin-badge-placeholder {
@@ -314,10 +318,6 @@ body {
     padding: clamp(10rem, 22vh, 15rem) 7vw 9vh 6vw;
   }
 
-  .hero-line-two {
-    flex-wrap: nowrap;
-  }
-
   .hero-sub {
     justify-content: flex-end;
   }
@@ -333,7 +333,7 @@ body {
 
 @media (min-width: 1100px) {
   :root {
-    --fs-large: clamp(4.2rem, 9.5vw, 7.8rem);
+    --fs-large: clamp(4.8rem, 11vw, 9.2rem);
   }
 }
 
@@ -698,6 +698,7 @@ body {
 }
 
 .bento-card:hover .bento-desc,
+.bento-card.active .bento-desc,
 .bento-card:focus-within .bento-desc {
   max-height: 140px;
   opacity: 1;
@@ -727,4 +728,225 @@ body {
 
 .bento-link:hover .arrow {
   transform: translateX(5px);
+}
+
+/* ==========================================================================
+   Mobile Responsive Adjustments (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Navbar Mobile */
+  .navbar-wrapper {
+    top: 1rem;
+    width: calc(100% - 1.6rem);
+  }
+
+  .capsule-navbar {
+    padding: 0.45rem 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.05rem;
+  }
+
+  .nav-links,
+  .nav-cta-btn {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  /* 2. Hero Section Mobile */
+  .hero {
+    padding: clamp(5.5rem, 12vh, 7.5rem) 5vw 6vh 5vw;
+    min-height: auto;
+  }
+
+  .eyebrow {
+    margin-top: 0.5rem;
+    margin-bottom: 1.4rem;
+    font-size: 0.72rem;
+  }
+
+  .hero-heading {
+    margin-left: 0;
+  }
+
+  .hero-line-one,
+  .hero-line-two {
+    flex-wrap: wrap;
+    gap: 0.1rem 0.4rem;
+  }
+
+  .hero-line-two {
+    margin-top: 0.1rem;
+  }
+
+  .normal-text {
+    font-size: clamp(1.65rem, 7.5vw, 2.5rem);
+    line-height: 1;
+  }
+
+  .large-word {
+    font-size: clamp(2.8rem, 13vw, 4.4rem);
+    line-height: 0.88;
+  }
+
+  /* 4 Distinct Lines on Mobile:
+     Line 1: "Grow Your"
+     Line 2: "BRAND with"
+     Line 3: "MARKETING"
+     Line 4: "that converts" */
+  .hero-line-one .normal-text:first-child {
+    width: 100%;
+  }
+
+  .hero-line-two .large-word.marketing {
+    -webkit-text-stroke: 2.5px var(--paper);
+    font-size: clamp(3rem, 14vw, 4.8rem);
+    width: 100%;
+  }
+
+  .hero-line-two .normal-text.converts {
+    width: 100%;
+  }
+
+  /* Hero Paragraph & Floating Badge Text Wrapping on Mobile */
+  .hero-sub {
+    display: block;
+    margin-top: 1.8rem;
+  }
+
+  .spin-badge-placeholder {
+    float: left;
+    margin-right: 0.85rem;
+    margin-bottom: 0.3rem;
+    width: 82px;
+    height: 82px;
+  }
+
+  .spin-badge {
+    width: 82px;
+    height: 82px;
+  }
+
+  .spin-badge .ring text {
+    font-size: 10px;
+  }
+
+  .hero-desc-desktop {
+    display: none;
+  }
+
+  .hero-desc-mobile {
+    display: block;
+    text-align: left;
+    max-width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .hero-sub p {
+    text-align: left;
+    max-width: 100%;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* 3. Services Section Mobile */
+  .services {
+    padding: 6vh 5vw 8vh 5vw;
+  }
+
+  .services-head {
+    margin-bottom: 2rem;
+  }
+
+  .services-head h2 {
+    font-size: clamp(1.5rem, 6vw, 2.1rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .services-head p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  /* Bento Grid Mobile Layout:
+     Row 1: Left = Spinning Badge Dock, Right = Card 1 (Be Found Online)
+     Row 2: Left = Card 2 (Target the Right Audience), Right = Card 3 (Convert More Leads)
+     Row 3: Full Width = Card 4 (Creative that performs) */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .bento-badge-dock {
+    grid-column: 1 / span 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 90px;
+  }
+
+  .card-a {
+    grid-column: 2 / span 1;
+    grid-row: 1;
+  }
+
+  .card-b {
+    grid-column: 1 / span 1;
+    grid-row: 2;
+  }
+
+  .card-c {
+    grid-column: 2 / span 1;
+    grid-row: 2;
+  }
+
+  .card-d {
+    grid-column: 1 / span 2;
+    grid-row: 3;
+  }
+
+  .bento-card {
+    padding: 1.1rem 0.9rem;
+    border-radius: 18px;
+    cursor: pointer;
+  }
+
+  .bento-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+  }
+
+  .bento-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .bento-card h3 {
+    font-size: 0.94rem;
+    line-height: 1.25;
+  }
+
+  .bento-card.active {
+    background: rgba(233, 232, 228, 0.85);
+    border-color: rgba(17, 17, 18, 0.25);
+  }
+
+  .bento-card.active .bento-desc {
+    max-height: 160px;
+    opacity: 1;
+    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
+    transform: translateY(0);
+  }
 }

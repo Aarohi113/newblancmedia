@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SpinningBadge from './SpinningBadge';
 
@@ -19,6 +19,11 @@ const fadeInUp = {
 
 export default function Services({ badgeDocked = false }) {
   const viewportSettings = { once: true, amount: 0.2 };
+  const [activeCard, setActiveCard] = useState(null);
+
+  const toggleCard = (id) => {
+    setActiveCard(prev => (prev === id ? null : id));
+  };
 
   return (
     <section className="services" id="services">
@@ -34,7 +39,7 @@ export default function Services({ badgeDocked = false }) {
           <span className="rule"></span>
           <span>What we do</span>
         </span>
-        <h2>Marketing that moves<br />your business forward</h2>
+        <h2>Why growing brands<br />choose to work with us</h2>
         <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
       </motion.div>
 
@@ -51,7 +56,11 @@ export default function Services({ badgeDocked = false }) {
           {badgeDocked && <SpinningBadge />}
         </div>
 
-        <motion.div className="bento-card card-a" whileHover={{ y: -6, transition: { duration: 0.3 } }}>
+        <motion.div 
+          className={`bento-card card-a ${activeCard === 'a' ? 'active' : ''}`}
+          onClick={() => toggleCard('a')}
+          whileHover={{ y: -6, transition: { duration: 0.3 } }}
+        >
           <div className="bento-icon">
             <svg viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.6" />
@@ -66,7 +75,11 @@ export default function Services({ badgeDocked = false }) {
           </a>
         </motion.div>
 
-        <motion.div className="bento-card card-b" whileHover={{ y: -6, transition: { duration: 0.3 } }}>
+        <motion.div 
+          className={`bento-card card-b ${activeCard === 'b' ? 'active' : ''}`}
+          onClick={() => toggleCard('b')}
+          whileHover={{ y: -6, transition: { duration: 0.3 } }}
+        >
           <div className="bento-icon">
             <svg viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.6" />
@@ -78,7 +91,11 @@ export default function Services({ badgeDocked = false }) {
           <p className="bento-desc">Connect with high-intent customers through strategic paid advertising campaigns.</p>
         </motion.div>
 
-        <motion.div className="bento-card card-c" whileHover={{ y: -6, transition: { duration: 0.3 } }}>
+        <motion.div 
+          className={`bento-card card-c ${activeCard === 'c' ? 'active' : ''}`}
+          onClick={() => toggleCard('c')}
+          whileHover={{ y: -6, transition: { duration: 0.3 } }}
+        >
           <div className="bento-icon">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M22 7L13.5 15.5L8.5 10.5L2 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -89,7 +106,11 @@ export default function Services({ badgeDocked = false }) {
           <p className="bento-desc">Turn website visitors into enquiries with optimized content and conversion journeys.</p>
         </motion.div>
 
-        <motion.div className="bento-card card-d" whileHover={{ y: -6, transition: { duration: 0.3 } }}>
+        <motion.div 
+          className={`bento-card card-d ${activeCard === 'd' ? 'active' : ''}`}
+          onClick={() => toggleCard('d')}
+          whileHover={{ y: -6, transition: { duration: 0.3 } }}
+        >
           <div className="bento-icon">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M4 19V9m6 10V5m6 14v-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />

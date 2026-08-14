@@ -156,8 +156,11 @@ export default function Hero({ badgeDocked = false }) {
         <div className="spin-badge-placeholder">
           {!badgeDocked && <SpinningBadge />}
         </div>
-        <p>
+        <p className="hero-desc-desktop">
           BLANC is a full-service digital marketing agency specializing in SEO, performance marketing, social media, content strategy, and conversion-driven campaigns that help brands get discovered, generate leads, and grow.
+        </p>
+        <p className="hero-desc-mobile">
+          BLANC is a full-service digital marketing agency helping brands get discovered, generate leads, and grow through SEO, performance marketing.
         </p>
       </motion.div>
     </section>
