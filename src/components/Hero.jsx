@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SpinningBadge from './SpinningBadge';
 
 const smoothTransition = (delay = 0) => ({
   duration: 1.4,
@@ -57,7 +58,7 @@ const fadeInUp = {
   }),
 };
 
-export default function Hero() {
+export default function Hero({ badgeDocked = false }) {
   const viewportSettings = { once: false, amount: 0.2 };
 
   return (
@@ -151,22 +152,10 @@ export default function Hero() {
         custom={0.85}
         variants={slideFromRight}
       >
-        {/* Spinning "Check the Project" badge */}
-        <a href="#work" className="spin-badge" aria-label="Check the project">
-          <svg className="ring" viewBox="0 0 200 200">
-            <defs>
-              <path id="badgeCirclePath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
-            </defs>
-            <text>
-              <textPath href="#badgeCirclePath" startOffset="0%">CHECK THE PROJECT&#160;&#160;•&#160;&#160;CHECK THE SERVICES&#160;&#160;•&#160;&#160;CHECK THE PROJECT&#160;&#160;•&#160;&#160;</textPath>
-            </text>
-          </svg>
-          <span className="center">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7 17L17 7M17 7H8M17 7V16" stroke="#111112" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        </a>
+        {/* Placeholder container for spinning badge */}
+        <div className="spin-badge-placeholder">
+          {!badgeDocked && <SpinningBadge />}
+        </div>
         <p>
           BLANC is a full-service digital marketing agency specializing in SEO, performance marketing, social media, content strategy, and conversion-driven campaigns that help brands get discovered, generate leads, and grow.
         </p>
