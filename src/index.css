@@ -40,7 +40,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(8.5rem, 18vh, 13rem) 6vw 8vh 5vw;
+  padding: clamp(7rem, 13vh, 10rem) 6vw 8vh 5vw;
   isolation: isolate;
 }
 
@@ -87,8 +87,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  margin-top: clamp(1.5rem, 4vh, 3.5rem);
-  margin-bottom: clamp(2rem, 6vh, 4.2rem);
+  margin-top: clamp(0.5rem, 1.5vh, 1.2rem);
+  margin-bottom: clamp(0.4rem, 1.2vh, 1rem);
   font-family: 'Manrope', sans-serif;
   font-size: var(--fs-eyebrow);
   letter-spacing: 0.14em;
@@ -107,7 +107,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: clamp(-1.2rem, -1.5vw, -0.4rem);
+  margin-left: clamp(0.8rem, 2vw, 1.8rem);
 }
 
 .hero-line {
@@ -163,14 +163,14 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  margin-top: clamp(2.5rem, 6vh, 5.5rem);
+  margin-top: clamp(0.2rem, 0.8vh, 0.8rem);
 }
 
 .hero-sub p {
   font-family: 'Manrope', sans-serif;
   font-weight: 400;
   font-size: var(--fs-body);
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--paper-dim);
   max-width: 44ch;
   text-align: right;
@@ -269,6 +269,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -479,8 +480,13 @@ body {
   transition: transform 0.3s ease;
 }
 
-.hamburger-bar::before { top: -6px; }
-.hamburger-bar::after { top: 6px; }
+.hamburger-bar::before {
+  top: -6px;
+}
+
+.hamburger-bar::after {
+  top: 6px;
+}
 
 /* Mobile Menu Dropdown */
 .mobile-menu-dropdown {
@@ -520,6 +526,7 @@ body {
   .nav-links {
     display: none;
   }
+
   .mobile-toggle {
     display: block;
   }
@@ -591,15 +598,19 @@ body {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto auto;
   }
+
   .card-a {
     grid-column: 3 / span 5;
   }
+
   .card-b {
     grid-column: 8 / span 5;
   }
+
   .card-c {
     grid-column: 1 / span 4;
   }
+
   .card-d {
     grid-column: 5 / span 8;
   }
@@ -691,10 +702,10 @@ body {
   overflow: hidden;
   transform: translateY(10px);
   transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.35s ease,
-              transform 0.35s ease,
-              margin-top 0.35s ease,
-              margin-bottom 0.35s ease;
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    margin-top 0.35s ease,
+    margin-bottom 0.35s ease;
 }
 
 .bento-card:hover .bento-desc,
@@ -734,6 +745,7 @@ body {
    Mobile Responsive Adjustments (max-width: 768px)
    ========================================================================== */
 @media (max-width: 768px) {
+
   /* 1. Navbar Mobile */
   .navbar-wrapper {
     top: 1rem;
@@ -759,18 +771,18 @@ body {
 
   /* 2. Hero Section Mobile */
   .hero {
-    padding: clamp(5.5rem, 12vh, 7.5rem) 5vw 6vh 5vw;
-    min-height: auto;
+    padding: clamp(3.2rem, 5vh, 4.5rem) 5vw 4vh 5vw;
+    min-height: 90vh;
   }
 
   .eyebrow {
-    margin-top: 0.5rem;
-    margin-bottom: 1.4rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.3rem;
     font-size: 0.72rem;
   }
 
   .hero-heading {
-    margin-left: 0;
+    margin-left: clamp(0.8rem, 3vw, 1.5rem);
   }
 
   .hero-line-one,
@@ -815,13 +827,13 @@ body {
   /* Hero Paragraph & Floating Badge Text Wrapping on Mobile */
   .hero-sub {
     display: block;
-    margin-top: 1.8rem;
+    margin-top: 0.2rem;
   }
 
   .spin-badge-placeholder {
     float: left;
     margin-right: 0.85rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.1rem;
     width: 82px;
     height: 82px;
   }
@@ -844,14 +856,14 @@ body {
     text-align: left;
     max-width: 100%;
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.45;
   }
 
   .hero-sub p {
     text-align: left;
     max-width: 100%;
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.45;
   }
 
   /* 3. Services Section Mobile */

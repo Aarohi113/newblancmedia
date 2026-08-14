@@ -39,7 +39,7 @@ export default function Services({ badgeDocked = false }) {
           <span className="rule"></span>
           <span>What we do</span>
         </span>
-        <h2>Why growing brands<br />choose to work with us</h2>
+        <h2>Marketing that moves<br />your business forward</h2>
         <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
       </motion.div>
 
@@ -56,7 +56,7 @@ export default function Services({ badgeDocked = false }) {
           {badgeDocked && <SpinningBadge />}
         </div>
 
-        <motion.div 
+        <motion.div
           className={`bento-card card-a ${activeCard === 'a' ? 'active' : ''}`}
           onClick={() => toggleCard('a')}
           whileHover={{ y: -6, transition: { duration: 0.3 } }}
@@ -75,7 +75,7 @@ export default function Services({ badgeDocked = false }) {
           </a>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className={`bento-card card-b ${activeCard === 'b' ? 'active' : ''}`}
           onClick={() => toggleCard('b')}
           whileHover={{ y: -6, transition: { duration: 0.3 } }}
@@ -91,7 +91,7 @@ export default function Services({ badgeDocked = false }) {
           <p className="bento-desc">Connect with high-intent customers through strategic paid advertising campaigns.</p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className={`bento-card card-c ${activeCard === 'c' ? 'active' : ''}`}
           onClick={() => toggleCard('c')}
           whileHover={{ y: -6, transition: { duration: 0.3 } }}
@@ -106,7 +106,7 @@ export default function Services({ badgeDocked = false }) {
           <p className="bento-desc">Turn website visitors into enquiries with optimized content and conversion journeys.</p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className={`bento-card card-d ${activeCard === 'd' ? 'active' : ''}`}
           onClick={() => toggleCard('d')}
           whileHover={{ y: -6, transition: { duration: 0.3 } }}
