@@ -17,8 +17,8 @@ const accordionData = [
   },
   {
     id: 3,
-    label: " Campaign Creation",
-    emoji: "🎨",
+    label: "Campaign Creation",
+    emoji: "💡",
     desc: "High-converting ad creatives, SEO-optimized articles, compelling social media assets, and high-impact landing pages.",
     bullets: ["Ad Creative Studio", "SEO Content Scaling", "Landing Page Design"]
   },
@@ -56,7 +56,16 @@ export default function Products() {
             tabIndex={0}
             onClick={() => setActiveAccCard(activeAccCard === item.id ? null : item.id)}
           >
-            <span className="acc-label">{item.label}</span>
+            <div className="acc-initial-wrap">
+              <span className="acc-label">{item.label}</span>
+              <div className="acc-arrow-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+
             <div className="acc-content">
               <div className="acc-inner-body">
                 <span className="acc-emoji-badge">{item.emoji}</span>

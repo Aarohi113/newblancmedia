@@ -1287,7 +1287,7 @@ body {
 .acc-row {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.75rem;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -1295,60 +1295,83 @@ body {
 .acc-card {
   position: relative;
   flex: 1;
-  min-height: 84px;
+  min-height: 72px;
   border-radius: 18px;
   background: #F3F2EE;
-  border: 1px solid rgba(17, 17, 18, 0.07);
+  border: 1px solid rgba(17, 17, 18, 0.08);
   overflow: hidden;
   cursor: pointer;
-  transition: background 0.5s ease, border-color 0.5s ease;
+  transition: min-height 0.45s ease, background 0.45s ease, border-color 0.45s ease, flex 0.55s cubic-bezier(.16, 1, .3, 1);
   outline: none;
 }
 
-.acc-label {
+.acc-initial-wrap {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.4rem;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.acc-label {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
-  font-size: clamp(1.05rem, 2vw, 1.42rem);
-  letter-spacing: 0.08em;
+  font-size: clamp(1rem, 3.8vw, 1.25rem);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #111112;
   white-space: nowrap;
-  z-index: 2;
-  opacity: 1;
-  transition: opacity 0.4s ease, color 0.4s ease, transform 0.45s cubic-bezier(.16, 1, .3, 1);
+}
+
+.acc-arrow-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 90, 31, 0.3);
+  transition: transform 0.35s ease, background-color 0.35s ease;
 }
 
 .acc-content {
   position: absolute;
   inset: 0;
-  padding: 3.6rem 1.4rem 1.4rem;
+  padding: 2.8rem 1.6rem 1.6rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
 }
 
-.acc-card:hover,
-.acc-card:focus-visible,
 .acc-card.is-active {
   background: #111112;
 }
 
-.acc-card:hover .acc-label,
-.acc-card:focus-visible .acc-label,
-.acc-card.is-active .acc-label {
+.acc-card.is-active .acc-initial-wrap {
   opacity: 0;
   pointer-events: none;
 }
 
-.acc-card:hover .acc-content,
-.acc-card:focus-visible .acc-content,
 .acc-card.is-active .acc-content {
   opacity: 1;
   pointer-events: auto;
+}
+
+@media (max-width: 859px) {
+  .acc-content {
+    padding: 1.8rem 1.4rem 1.6rem;
+  }
+
+  .acc-card.is-active {
+    min-height: 310px;
+  }
 }
 
 @media (min-width: 860px) {
@@ -1360,33 +1383,51 @@ body {
   .acc-card {
     flex: 1;
     min-height: 0;
-    transition: flex 0.55s cubic-bezier(.16, 1, .3, 1), background 0.5s ease, border-color 0.5s ease;
   }
 
   .acc-card:hover,
   .acc-card:focus-visible,
   .acc-card.is-active {
     flex: 4.4;
+    background: #111112;
+  }
+
+  .acc-card:hover .acc-initial-wrap,
+  .acc-card:focus-visible .acc-initial-wrap,
+  .acc-card.is-active .acc-initial-wrap {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+  }
+
+  .acc-card:hover .acc-content,
+  .acc-card:focus-visible .acc-content,
+  .acc-card.is-active .acc-content {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .acc-initial-wrap {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .acc-arrow-badge {
+    display: none;
   }
 
   .acc-label {
+    position: absolute;
     left: 50%;
     top: 50%;
-    bottom: auto;
-    transform-origin: center center;
     transform: translate(-50%, -50%) rotate(-90deg);
-  }
-
-  .acc-card:hover .acc-label,
-  .acc-card:focus-visible .acc-label,
-  .acc-card.is-active .acc-label {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-50%, -50%) rotate(-90deg) scale(0.9);
+    transform-origin: center center;
+    font-size: clamp(1.05rem, 2vw, 1.42rem);
+    letter-spacing: 0.08em;
   }
 
   .acc-content {
-    padding: 2rem 1.8rem 1.8rem;
+    padding: 3rem 2rem 2rem;
   }
 }
 
@@ -1395,13 +1436,14 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: flex-end;
+  justify-content: flex-start;
   color: #E9E8E4;
 }
 
 .acc-emoji-badge {
   font-size: 2.2rem;
-  margin-bottom: 0.5rem;
+  line-height: 1;
+  margin-bottom: 0.6rem;
   display: block;
 }
 
