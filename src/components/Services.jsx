@@ -13,13 +13,12 @@ const fadeInUp = {
 export default function Services() {
   const sectionRef = useRef(null);
   const [isSpread, setIsSpread] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [mobileStep, setMobileStep] = useState(0);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860);
   const isAnimatingRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 860);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -27,6 +26,8 @@ export default function Services() {
   }, []);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const sectionEl = sectionRef.current;
     if (!sectionEl) return;
 
@@ -34,40 +35,22 @@ export default function Services() {
 
     const handleWheel = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
+      const isVisible = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
       if (!isVisible) return;
 
-      if (isMobile) {
-        if (e.deltaY > 0 && mobileStep < 3) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setMobileStep(prev => Math.min(prev + 1, 3));
-            setTimeout(() => { isAnimatingRef.current = false; }, 550);
-          }
-        } else if (e.deltaY < 0 && mobileStep > 0 && rect.top > -150 && rect.top < 220) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setMobileStep(prev => Math.max(prev - 1, 0));
-            setTimeout(() => { isAnimatingRef.current = false; }, 550);
-          }
+      if (e.deltaY > 0 && !isSpread) {
+        e.preventDefault();
+        if (!isAnimatingRef.current) {
+          isAnimatingRef.current = true;
+          setIsSpread(true);
+          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
         }
-      } else {
-        if (e.deltaY > 0 && !isSpread) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setIsSpread(true);
-            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
-          }
-        } else if (e.deltaY < 0 && isSpread && rect.top > -120 && rect.top < 180) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setIsSpread(false);
-            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
-          }
+      } else if (e.deltaY < 0 && isSpread && rect.top > -120 && rect.top < 180) {
+        e.preventDefault();
+        if (!isAnimatingRef.current) {
+          isAnimatingRef.current = true;
+          setIsSpread(false);
+          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
         }
       }
     };
@@ -78,43 +61,25 @@ export default function Services() {
 
     const handleTouchMove = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
+      const isVisible = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
       if (!isVisible) return;
 
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY;
 
-      if (isMobile) {
-        if (deltaY > 18 && mobileStep < 3) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setMobileStep(prev => Math.min(prev + 1, 3));
-            setTimeout(() => { isAnimatingRef.current = false; }, 550);
-          }
-        } else if (deltaY < -18 && mobileStep > 0 && rect.top > -150 && rect.top < 220) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setMobileStep(prev => Math.max(prev - 1, 0));
-            setTimeout(() => { isAnimatingRef.current = false; }, 550);
-          }
+      if (deltaY > 25 && !isSpread) {
+        if (e.cancelable) e.preventDefault();
+        if (!isAnimatingRef.current) {
+          isAnimatingRef.current = true;
+          setIsSpread(true);
+          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
         }
-      } else {
-        if (deltaY > 25 && !isSpread) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setIsSpread(true);
-            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
-          }
-        } else if (deltaY < -25 && isSpread && rect.top > -120 && rect.top < 180) {
-          e.preventDefault();
-          if (!isAnimatingRef.current) {
-            isAnimatingRef.current = true;
-            setIsSpread(false);
-            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
-          }
+      } else if (deltaY < -25 && isSpread && rect.top > -120 && rect.top < 180) {
+        if (e.cancelable) e.preventDefault();
+        if (!isAnimatingRef.current) {
+          isAnimatingRef.current = true;
+          setIsSpread(false);
+          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
         }
       }
     };
@@ -128,7 +93,7 @@ export default function Services() {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isSpread, isMobile, mobileStep]);
+  }, [isSpread, isMobile]);
 
   // Card Variants for stacked vs spread
   const cardVariants = {
@@ -164,13 +129,7 @@ export default function Services() {
 
   const getCardProps = (index) => {
     if (isMobile) {
-      const isVisibleOnMobile = index === 0 || mobileStep >= index;
-      return {
-        initial: index === 0 ? { y: 0, opacity: 1 } : { y: '100%', opacity: 0 },
-        animate: isVisibleOnMobile ? { y: 0, opacity: 1 } : { y: '100%', opacity: 0 },
-        transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
-        style: { zIndex: 10 + index }
-      };
+      return {};
     } else {
       return {
         custom: index,
@@ -185,27 +144,22 @@ export default function Services() {
 
   return (
     <section className="services" id="services" ref={sectionRef}>
-      <motion.div
-        className="services-head"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
-        variants={fadeInUp}
-      >
-        <span className="eyebrow eyebrow--static">
-          <span>What we do</span>
-        </span>
-        <h2>Marketing that moves<br />your business forward</h2>
-        <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
-      </motion.div>
+      <div className="services-grid-layout">
+        <motion.div
+          className="services-head"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          variants={fadeInUp}
+        >
+          <span className="eyebrow eyebrow--static">
+            <span>What we do</span>
+          </span>
+          <h2>Marketing that moves<br />your business forward</h2>
+          <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
+        </motion.div>
 
-      <div className="bento-grid">
-        {isMobile && (
-          <div className="mobile-card-step-badge">
-            <span>{mobileStep + 1}</span> / <span>4</span>
-          </div>
-        )}
-
+        <div className="bento-grid">
         {/* Card 1 (Card A) - Top Layer */}
         <motion.div
           className="bento-card card-a card-static"
@@ -371,6 +325,7 @@ export default function Services() {
           </div>
         </motion.div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 }

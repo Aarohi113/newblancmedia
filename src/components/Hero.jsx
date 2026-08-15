@@ -2,54 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const smoothTransition = (delay = 0) => ({
-  duration: 1.4,
+  duration: 2.2,
   ease: [0.16, 1, 0.3, 1],
   delay: delay,
 });
 
-// 1. Grow Your - slides from Left
-const slideFromLeft = {
-  hidden: { opacity: 0, x: -140 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: smoothTransition(delay),
-  }),
-};
-
-// 2. BRAND - slides from Top
-const slideFromTop = {
-  hidden: { opacity: 0, y: -140 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: smoothTransition(delay),
-  }),
-};
-
-// 3. with & that converts - slides from Right
-const slideFromRight = {
-  hidden: { opacity: 0, x: 140 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: smoothTransition(delay),
-  }),
-};
-
-// 4. MARKETING - slides from Bottom
-const slideFromBottom = {
-  hidden: { opacity: 0, y: 140 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: smoothTransition(delay),
-  }),
-};
-
-// General fade/slide up for eyebrow & paragraph
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 55 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
@@ -58,105 +17,110 @@ const fadeInUp = {
 };
 
 export default function Hero() {
-  const viewportSettings = { once: false, amount: 0.2 };
+  const viewportSettings = { once: true, amount: 0.2 };
 
   return (
     <section className="hero">
-      {/* Eyebrow */}
-      <motion.div
-        className="eyebrow"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportSettings}
-        custom={0.1}
-        variants={fadeInUp}
-      >
-        <span className="rule"></span>
-        <span>DIGITAL MARKETING & GROWTH AGENCY</span>
-      </motion.div>
-
       {/* Hero Heading */}
-      <div className="hero-heading">
-        <div className="hero-line hero-line-one">
-          {/* 1. Grow Your — slides in from Left */}
-          <motion.span
-            className="normal-text"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportSettings}
-            custom={0.2}
-            variants={slideFromLeft}
-          >
-            Grow Your
-          </motion.span>
+      <div className="hero-heading hero-heading-centered">
+        {/* Line 1: Your Next Best Marketing */}
+        <motion.div
+          className="hero-heading-line line-black"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportSettings}
+          custom={0.1}
+          variants={fadeInUp}
+        >
+          Your Next Best Marketing
+        </motion.div>
 
-          {/* 2. BRAND — slides in from Top */}
-          <motion.span
-            className="large-word brand"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportSettings}
-            custom={0.35}
-            variants={slideFromTop}
-          >
-            BRAND
-          </motion.span>
-
-          {/* 3. with — slides in from Right */}
-          <motion.span
-            className="normal-text with"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportSettings}
-            custom={0.45}
-            variants={slideFromRight}
-          >
-            with
-          </motion.span>
-        </div>
-
-        <div className="hero-line hero-line-two">
-          {/* 4. MARKETING — slides in from Bottom */}
-          <motion.span
-            className="large-word marketing"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportSettings}
-            custom={0.55}
-            variants={slideFromBottom}
-          >
-            MARKETING
-          </motion.span>
-
-          {/* 5. that converts — slides in from Right */}
-          <motion.span
-            className="normal-text converts"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportSettings}
-            custom={0.7}
-            variants={slideFromRight}
-          >
-            that converts
-          </motion.span>
-        </div>
+        {/* Line 2: Decision Starts Here */}
+        <motion.div
+          className="hero-heading-line line-grey"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportSettings}
+          custom={0.35}
+          variants={fadeInUp}
+        >
+          Decision Starts Here
+        </motion.div>
       </div>
 
-      {/* Supporting paragraph */}
+      {/* Floating Angled Glassmorphism Card Left 1 (Upper Left) */}
       <motion.div
-        className="hero-sub"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportSettings}
-        custom={0.85}
-        variants={slideFromRight}
+        className="hero-glass-card card-left-1"
+        initial={{ opacity: 0, x: -60, y: 40, rotate: -15 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, rotate: -8 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
       >
-        <p className="hero-desc-desktop">
-          BLANC is a full-service digital marketing agency specializing in SEO, performance marketing, social media, content strategy, and conversion-driven campaigns that help brands get discovered, generate leads, and grow.
-        </p>
-        <p className="hero-desc-mobile">
-          BLANC is a full-service digital marketing agency helping brands get discovered, generate leads, and grow through SEO, performance marketing.
-        </p>
+        <span className="glass-card-icon">⚡</span>
+        <div className="glass-card-info">
+          <span className="glass-card-val">200%</span>
+          <span className="glass-card-lbl">Leads Growth</span>
+        </div>
+      </motion.div>
+
+      {/* Floating Angled Glassmorphism Card Left 2 (Lower Left) */}
+      <motion.div
+        className="hero-glass-card card-left-2"
+        initial={{ opacity: 0, x: -50, y: 50, rotate: 10 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, rotate: 5 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
+      >
+        <span className="glass-card-icon">🎯</span>
+        <div className="glass-card-info">
+          <span className="glass-card-val">-35%</span>
+          <span className="glass-card-lbl">Cost Per Lead</span>
+        </div>
+      </motion.div>
+
+      {/* Floating Angled Glassmorphism Card Right 1 (Upper Right) */}
+      <motion.div
+        className="hero-glass-card card-right-1"
+        initial={{ opacity: 0, x: 60, y: 40, rotate: 15 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, rotate: 8 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.55 }}
+      >
+        <span className="glass-card-icon">🚀</span>
+        <div className="glass-card-info">
+          <span className="glass-card-val">3.5X</span>
+          <span className="glass-card-lbl">Better ROAS</span>
+        </div>
+      </motion.div>
+
+      {/* Floating Angled Glassmorphism Card Right 2 (Lower Right) */}
+      <motion.div
+        className="hero-glass-card card-right-2"
+        initial={{ opacity: 0, x: 50, y: 50, rotate: -10 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, rotate: -5 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
+      >
+        <span className="glass-card-icon">📈</span>
+        <div className="glass-card-info">
+          <span className="glass-card-val">↑ 120</span>
+          <span className="glass-card-lbl">More Traffic</span>
+        </div>
+      </motion.div>
+
+      {/* BLANC Mascot Overlay rising & zooming from small into position */}
+      <motion.div
+        className="hero-mascot-wrapper"
+        initial={{ opacity: 0, scale: 0.6, y: 85, x: "-50%" }}
+        whileInView={{ opacity: 1, scale: 1, y: 0, x: "-50%" }}
+        viewport={{ once: true }}
+        transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
+      >
+        <img
+          src="/Blanc Mascot (1).png"
+          alt="BLANC Mascot"
+          className="hero-mascot-img"
+        />
       </motion.div>
     </section>
   );

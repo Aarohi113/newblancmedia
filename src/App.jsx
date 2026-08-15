@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Products from './components/Products';
 import Cta from './components/Cta';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Services />
       <Products />
       <Cta />
+      <Footer />
     </main>
   );
 }
