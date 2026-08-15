@@ -14,6 +14,7 @@ export default function Services() {
   const sectionRef = useRef(null);
   const [isSpread, setIsSpread] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [mobileStep, setMobileStep] = useState(0);
   const isAnimatingRef = useRef(false);
 
   useEffect(() => {
@@ -26,8 +27,6 @@ export default function Services() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) return;
-
     const sectionEl = sectionRef.current;
     if (!sectionEl) return;
 
@@ -35,31 +34,40 @@ export default function Services() {
 
     const handleWheel = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      // Check if section is centered / in view in viewport
-      const isVisible = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
-
+      const isVisible = rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
       if (!isVisible) return;
 
-      // Scrolling DOWN & cards are stacked -> intercept scroll, spread cards, block page scroll
-      if (e.deltaY > 0 && !isSpread) {
-        e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(true);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 1200);
+      if (isMobile) {
+        if (e.deltaY > 0 && mobileStep < 3) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setMobileStep(prev => Math.min(prev + 1, 3));
+            setTimeout(() => { isAnimatingRef.current = false; }, 550);
+          }
+        } else if (e.deltaY < 0 && mobileStep > 0 && rect.top > -150 && rect.top < 220) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setMobileStep(prev => Math.max(prev - 1, 0));
+            setTimeout(() => { isAnimatingRef.current = false; }, 550);
+          }
         }
-      }
-      // Scrolling UP & cards are spread & section is near top -> intercept scroll, stack cards back, block page scroll
-      else if (e.deltaY < 0 && isSpread && rect.top > -120 && rect.top < 180) {
-        e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(false);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 1200);
+      } else {
+        if (e.deltaY > 0 && !isSpread) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setIsSpread(true);
+            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+          }
+        } else if (e.deltaY < 0 && isSpread && rect.top > -120 && rect.top < 180) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setIsSpread(false);
+            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+          }
         }
       }
     };
@@ -70,29 +78,43 @@ export default function Services() {
 
     const handleTouchMove = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
+      const isVisible = rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
       if (!isVisible) return;
 
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY;
 
-      if (deltaY > 25 && !isSpread) {
-        e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(true);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 1200);
+      if (isMobile) {
+        if (deltaY > 18 && mobileStep < 3) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setMobileStep(prev => Math.min(prev + 1, 3));
+            setTimeout(() => { isAnimatingRef.current = false; }, 550);
+          }
+        } else if (deltaY < -18 && mobileStep > 0 && rect.top > -150 && rect.top < 220) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setMobileStep(prev => Math.max(prev - 1, 0));
+            setTimeout(() => { isAnimatingRef.current = false; }, 550);
+          }
         }
-      } else if (deltaY < -25 && isSpread && rect.top > -120 && rect.top < 180) {
-        e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(false);
-          setTimeout(() => {
-            isAnimatingRef.current = false;
-          }, 1200);
+      } else {
+        if (deltaY > 25 && !isSpread) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setIsSpread(true);
+            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+          }
+        } else if (deltaY < -25 && isSpread && rect.top > -120 && rect.top < 180) {
+          e.preventDefault();
+          if (!isAnimatingRef.current) {
+            isAnimatingRef.current = true;
+            setIsSpread(false);
+            setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+          }
         }
       }
     };
@@ -106,7 +128,7 @@ export default function Services() {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isSpread, isMobile]);
+  }, [isSpread, isMobile, mobileStep]);
 
   // Card Variants for stacked vs spread
   const cardVariants = {
@@ -140,6 +162,27 @@ export default function Services() {
     delay: isSpread ? index * 0.16 : (3 - index) * 0.08,
   });
 
+  const getCardProps = (index) => {
+    if (isMobile) {
+      const isVisibleOnMobile = index === 0 || mobileStep >= index;
+      return {
+        initial: index === 0 ? { y: 0, opacity: 1 } : { y: '100%', opacity: 0 },
+        animate: isVisibleOnMobile ? { y: 0, opacity: 1 } : { y: '100%', opacity: 0 },
+        transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+        style: { zIndex: 10 + index }
+      };
+    } else {
+      return {
+        custom: index,
+        initial: 'stacked',
+        animate: isSpread ? 'spread' : 'stacked',
+        variants: cardVariants,
+        transition: getTransition(index),
+        style: { zIndex: 10 - index }
+      };
+    }
+  };
+
   return (
     <section className="services" id="services" ref={sectionRef}>
       <motion.div
@@ -157,15 +200,16 @@ export default function Services() {
       </motion.div>
 
       <div className="bento-grid">
+        {isMobile && (
+          <div className="mobile-card-step-badge">
+            <span>{mobileStep + 1}</span> / <span>4</span>
+          </div>
+        )}
+
         {/* Card 1 (Card A) - Top Layer */}
         <motion.div
           className="bento-card card-a card-static"
-          custom={0}
-          initial="stacked"
-          animate={isMobile || isSpread ? 'spread' : 'stacked'}
-          variants={cardVariants}
-          transition={getTransition(0)}
-          style={{ zIndex: 10 }}
+          {...getCardProps(0)}
         >
           <div className="card-bottom-content">
             <span className="big-stat-num">200%</span>
@@ -176,12 +220,7 @@ export default function Services() {
         {/* Card 2 (Card B) - Emerges from behind Card A */}
         <motion.div
           className="bento-card card-b card-static"
-          custom={1}
-          initial="stacked"
-          animate={isMobile || isSpread ? 'spread' : 'stacked'}
-          variants={cardVariants}
-          transition={getTransition(1)}
-          style={{ zIndex: 9 }}
+          {...getCardProps(1)}
         >
           <div className="card-stat-header roas-header">
             <span className="roas-num">-35%</span>
@@ -219,18 +258,15 @@ export default function Services() {
         {/* Card 3 (Card C) - Emerges from behind Card A */}
         <motion.div
           className="bento-card card-c card-static"
-          custom={2}
-          initial="stacked"
-          animate={isMobile || isSpread ? 'spread' : 'stacked'}
-          variants={cardVariants}
-          transition={getTransition(2)}
-          style={{ zIndex: 8 }}
+          {...getCardProps(2)}
         >
-          <div className="card-stat-header">
-            <span className="up-arrow">↑</span>
-            <span className="stat-val">120</span>
+          <div className="card-stat-header roas-header">
+            <div className="stat-num-row">
+              <span className="up-arrow">↑</span>
+              <span className="stat-val">120</span>
+            </div>
+            <span className="roas-label">More Traffic</span>
           </div>
-          <h3>Convert More Leads</h3>
           <p className="card-static-desc">
             Turn website visitors into enquiries with content.
           </p>
@@ -274,23 +310,22 @@ export default function Services() {
                   fillOpacity="0.85"
                 />
 
-                <circle cx="230" cy="14" r="3.5" fill="#2563EB" />
-                <text x="194" y="13" fill="#111112" fontSize="13" fontWeight="bold" fontFamily="sans-serif">120</text>
+                <circle cx="230" cy="14" r="3.5" fill="#FF5A1F" />
+                <text x="194" y="13" fill="#FF5A1F" fontSize="13" fontWeight="bold" fontFamily="sans-serif">120</text>
               </svg>
               <div className="chart-x-axis">Date</div>
             </div>
+          </div>
+
+          <div className="card-bottom-heading">
+            Convert More Leads
           </div>
         </motion.div>
 
         {/* Card 4 (Card D) - Emerges from behind Card A */}
         <motion.div
           className="bento-card card-d card-static"
-          custom={3}
-          initial="stacked"
-          animate={isMobile || isSpread ? 'spread' : 'stacked'}
-          variants={cardVariants}
-          transition={getTransition(3)}
-          style={{ zIndex: 7 }}
+          {...getCardProps(3)}
         >
           <div className="card-stat-header roas-header">
             <span className="roas-num">3X</span>

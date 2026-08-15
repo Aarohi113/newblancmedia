@@ -36,19 +36,21 @@ const accordionData = [
 ];
 
 export default function Products() {
-  // Card 1 is open by default initially
+  // Card 1 is open by default initially with black background
   const [activeAccCard, setActiveAccCard] = useState(1);
 
   const handleMouseEnter = (id) => {
+    if (window.innerWidth < 860) return;
     setActiveAccCard(id);
   };
 
   const handleMouseLeave = () => {
+    if (window.innerWidth < 860) return;
     setActiveAccCard(1);
   };
 
   const handleCardClick = (id) => {
-    setActiveAccCard(id);
+    setActiveAccCard(prev => (prev === id ? null : id));
   };
 
   return (
