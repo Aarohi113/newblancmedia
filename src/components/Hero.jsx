@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import SpinningBadge from './SpinningBadge';
 
 const smoothTransition = (delay = 0) => ({
   duration: 1.4,
@@ -58,7 +57,7 @@ const fadeInUp = {
   }),
 };
 
-export default function Hero({ badgeDocked = false }) {
+export default function Hero() {
   const viewportSettings = { once: false, amount: 0.2 };
 
   return (
@@ -143,7 +142,7 @@ export default function Hero({ badgeDocked = false }) {
         </div>
       </div>
 
-      {/* Supporting paragraph with spinning badge */}
+      {/* Supporting paragraph */}
       <motion.div
         className="hero-sub"
         initial="hidden"
@@ -152,10 +151,6 @@ export default function Hero({ badgeDocked = false }) {
         custom={0.85}
         variants={slideFromRight}
       >
-        {/* Placeholder container for spinning badge */}
-        <div className="spin-badge-placeholder">
-          {!badgeDocked && <SpinningBadge />}
-        </div>
         <p className="hero-desc-desktop">
           BLANC is a full-service digital marketing agency specializing in SEO, performance marketing, social media, content strategy, and conversion-driven campaigns that help brands get discovered, generate leads, and grow.
         </p>

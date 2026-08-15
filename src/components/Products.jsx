@@ -1,87 +1,103 @@
 import React, { useState } from 'react';
+import cardPerfImg from '../assets/card_perf.jpg';
+import cardMarketImg from '../assets/card_market.jpg';
 
 const accordionData = [
   {
     id: 1,
-    label: "Brand Audit",
+    label: "Search Engine Optimization",
     emoji: "🔍",
-    desc: "Comprehensive market, competitor, audience, and website analysis to uncover untapped SEO and growth opportunities.",
-    bullets: ["Competitor Benchmark", "Audience Insights", "Technical SEO Audit"]
+    desc: "Comprehensive search strategy, technical SEO audits, keyword optimization, and high-quality link building to boost rank.",
+    bullets: ["Keyword Optimization", "Technical SEO", "Link Building"]
   },
   {
     id: 2,
-    label: "Marketing Strategy",
+    label: "Pay Per Click ads",
     emoji: "🧭",
-    desc: "A custom, data-driven roadmap spanning organic search, performance ads, content marketing, and conversion funnels.",
-    bullets: ["Keyword & Intent Mapping", "Paid Media Roadmap", "Conversion Architecture"]
+    image: cardMarketImg,
+    desc: "High-ROI Google Ads, Meta Ads, and targeted PPC advertising campaigns focused on driving qualified leads.",
+    bullets: ["Google Ads", "Meta Paid Ads", "Conversion Tracking"]
   },
   {
     id: 3,
-    label: "Campaign Creation",
+    label: "Social media management",
     emoji: "💡",
-    desc: "High-converting ad creatives, SEO-optimized articles, compelling social media assets, and high-impact landing pages.",
-    bullets: ["Ad Creative Studio", "SEO Content Scaling", "Landing Page Design"]
+    desc: "Strategic social media content, audience engagement, brand building, and creative post designs across platforms.",
+    bullets: ["Social Content", "Community Growth", "Brand Engagement"]
   },
   {
     id: 4,
-    label: "Campaign Execution",
-    emoji: "🚀",
-    desc: "Flawless launch and active management of targeted Google Ads, Meta Ads, social campaigns, and search rank scaling.",
-    bullets: ["Multi-Channel Ads", "Real-Time Bidding", "Lead Generation"]
-  },
-  {
-    id: 5,
-    label: "Performance Optimization",
+    label: "Website Development",
     emoji: "📊",
-    desc: "Continuous A/B testing, rank tracking, conversion rate optimization (CRO), and transparent performance analytics.",
-    bullets: ["CRO & Funnel Testing", "ROI Analytics", "Weekly Growth Reports"]
+    image: cardPerfImg,
+    desc: "Modern, ultra-fast, responsive web development built for high conversion, search visibility, and seamless user experience.",
+    bullets: ["Responsive Web Design", "Conversion Funnels", "High Performance"]
   }
 ];
 
 export default function Products() {
-  const [activeAccCard, setActiveAccCard] = useState(null);
+  // Card 1 is open by default initially
+  const [activeAccCard, setActiveAccCard] = useState(1);
+
+  const handleMouseEnter = (id) => {
+    setActiveAccCard(id);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveAccCard(1);
+  };
+
+  const handleCardClick = (id) => {
+    setActiveAccCard(id);
+  };
 
   return (
     <section className="accordion-services" id="products">
-      <div className="acc-head">
-        <h2>The BLANC Growth Process.</h2>
-        <p>A data-driven digital marketing process designed to increase visibility, reach the right audience, and drive measurable results.</p>
-      </div>
+      <div className="acc-container">
+        {/* Existing Left Heading */}
+        <div className="acc-left-heading">
+          <span className="eyebrow eyebrow--static">
+            <span>OUR PROCESS</span>
+          </span>
+          <h2>The BLANC<br />Growth Process.</h2>
+          <p>
+            A data-driven digital marketing process designed to increase visibility, reach the right audience, and drive measurable results.
+          </p>
+        </div>
 
-      <div className="acc-row">
-        {accordionData.map((item) => (
-          <div
-            key={item.id}
-            className={`acc-card ${activeAccCard === item.id ? 'is-active' : ''}`}
-            tabIndex={0}
-            onClick={() => setActiveAccCard(activeAccCard === item.id ? null : item.id)}
-          >
-            <div className="acc-initial-wrap">
+        {/* User Accordion Row */}
+        <div className="acc-row" onMouseLeave={handleMouseLeave}>
+          {accordionData.map((item) => (
+            <div
+              key={item.id}
+              className={`acc-card ${activeAccCard === item.id ? 'is-active' : ''}`}
+              tabIndex={0}
+              onMouseEnter={() => handleMouseEnter(item.id)}
+              onClick={() => handleCardClick(item.id)}
+            >
               <span className="acc-label">{item.label}</span>
-              <div className="acc-arrow-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </div>
-            </div>
 
-            <div className="acc-content">
-              <div className="acc-inner-body">
-                <span className="acc-emoji-badge">{item.emoji}</span>
-                <h4 className="acc-content-title">{item.label}</h4>
-                <p className="acc-content-desc">{item.desc}</p>
-                <div className="acc-bullets">
-                  {item.bullets.map((b, i) => (
-                    <span key={i} className="acc-bullet-tag">
-                      ✓ {b}
-                    </span>
-                  ))}
+              <div className="acc-content">
+                <div className="acc-inner-body">
+                  {item.image && (
+                    <div className="acc-card-img-wrap">
+                      <img src={item.image} alt={item.label} className="acc-card-img" />
+                    </div>
+                  )}
+                  <span className="acc-emoji-badge">{item.emoji}</span>
+                  <p className="acc-content-desc">{item.desc}</p>
+                  <div className="acc-bullets">
+                    {item.bullets.map((b, i) => (
+                      <span key={i} className="acc-bullet-tag">
+                        ✓ {b}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
