@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 35 },
+  hidden: { opacity: 0, y: 30 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.2,
+      duration: 1.1,
       ease: [0.16, 1, 0.3, 1],
       delay,
     },
@@ -16,10 +16,13 @@ const fadeInUp = {
 
 export default function Cta() {
   const [formData, setFormData] = useState({
-    name: '',
-    city: '',
-    contact: '',
-    message: ''
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company: '',
+    website: '',
+    notes: ''
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -37,98 +40,146 @@ export default function Cta() {
     <section className="final-cta-section" id="contact">
       <div className="cta-ambient-glow" />
 
-      <div className="cta-container cta-grid-layout">
-        {/* Left Column: Eyebrow + Heading */}
+      <div className="cta-split-wrapper">
+        {/* Left Column: Portrait Character Image Card */}
         <motion.div
-          className="cta-left-content"
+          className="cta-portrait-card"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInUp}
           custom={0.1}
         >
-          <span className="eyebrow eyebrow--static cta-eyebrow">
-            <span className="rule" />
-            <span>GET IN TOUCH</span>
-          </span>
-
-          <h2 className="cta-heading">
-            Let's make your presence <span className="cta-highlight">unignorable.</span>
-          </h2>
+          <picture>
+            <source srcSet="/Charac.webp" type="image/webp" />
+            <img
+              src="/Charac.png"
+              alt="BLANC Media Mascot"
+              className="portrait-charac-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </motion.div>
 
-        {/* Right Column: Contact Form */}
+        {/* Right Column: Charcoal Black Form Card */}
         <motion.div
-          className="cta-right-form-wrap"
+          className="cta-form-card"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={fadeInUp}
           custom={0.25}
         >
+          <div className="cta-form-header">
+            <span className="eyebrow eyebrow--static cta-eyebrow-dark">
+              <span>GET IN TOUCH</span>
+            </span>
+
+            <h2 className="cta-heading-dark">
+              Let's make your presence <span className="cta-highlight">unignorable.</span>
+            </h2>
+          </div>
+
           {submitted ? (
-            <div className="cta-form-success">
+            <div className="cta-form-success-dark">
               <span className="success-icon">✓</span>
               <h3>Message Sent Successfully!</h3>
               <p>Thank you for reaching out. We will get back to you shortly.</p>
             </div>
           ) : (
-            <form className="cta-contact-form" onSubmit={handleSubmit}>
+            <form className="cta-contact-form-dark" onSubmit={handleSubmit}>
+              {/* Row 1: First Name & Last Name */}
+              <div className="form-row-2col">
+                <div className="form-group">
+                  <label htmlFor="firstName">First Name *</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    required
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              {/* Row 2: Email & Phone */}
+              <div className="form-row-2col">
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="phone">Phone *</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              {/* Row 3: Company Name */}
               <div className="form-group">
-                <label htmlFor="name">Your Name</label>
+                <label htmlFor="company">Company Name</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="e.g. Rahul Sharma"
-                  value={formData.name}
+                  id="company"
+                  name="company"
+                  value={formData.company}
                   onChange={handleChange}
                 />
               </div>
 
-              <div className="form-row-2col">
-                <div className="form-group">
-                  <label htmlFor="city">City</label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    required
-                    placeholder="e.g. Mumbai"
-                    value={formData.city}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="contact">Contact Number</label>
-                  <input
-                    type="tel"
-                    id="contact"
-                    name="contact"
-                    required
-                    placeholder="e.g. +91 98765 43210"
-                    value={formData.contact}
-                    onChange={handleChange}
-                  />
-                </div>
+              {/* Row 4: Website URL */}
+              <div className="form-group">
+                <label htmlFor="website">Website URL</label>
+                <input
+                  type="url"
+                  id="website"
+                  name="website"
+                  placeholder="https://"
+                  value={formData.website}
+                  onChange={handleChange}
+                />
               </div>
 
+              {/* Row 5: Additional Notes */}
               <div className="form-group">
-                <label htmlFor="message">Message</label>
+                <label htmlFor="notes">Additional Notes</label>
                 <textarea
-                  id="message"
-                  name="message"
-                  rows="4"
-                  required
-                  placeholder="Tell us about your project or growth goals..."
-                  value={formData.message}
+                  id="notes"
+                  name="notes"
+                  rows="3"
+                  value={formData.notes}
                   onChange={handleChange}
                 ></textarea>
               </div>
 
-              <button type="submit" className="cta-submit-btn">
+              <button type="submit" className="cta-submit-btn-dark">
                 <span>Send Message</span>
                 <span className="btn-arrow">→</span>
               </button>

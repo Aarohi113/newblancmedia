@@ -116,11 +116,17 @@ export default function Hero() {
         viewport={{ once: true }}
         transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
       >
-        <img
-          src="/Blanc Mascot (1).png"
-          alt="BLANC Mascot"
-          className="hero-mascot-img"
-        />
+        <picture>
+          <source srcSet="/Blanc Mascot (1).webp" type="image/webp" />
+          <img
+            src="/Blanc Mascot (1).png"
+            alt="BLANC Mascot"
+            className="hero-mascot-img"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
       </motion.div>
     </section>
   );

@@ -12,9 +12,15 @@ const fadeInUp = {
 
 export default function Services() {
   const sectionRef = useRef(null);
-  const [isSpread, setIsSpread] = useState(false);
+  // Steps:
+  // Step 0: Heading left + Layered Cards (Image 2)
+  // Step 1: Page locked + Cards spread out horizontally into a row
+  // Step 2: Page locked + Horizontal scroll (Heading -60% left off-screen + last cards visible on right)
+  // Step 3: Page locked + Heading slides back in + Cards layer back into stack
+  // Step 4: Section unlocks + Vertical page scroll down to next section
+  const [step, setStep] = useState(0);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860);
-  const isAnimatingRef = useRef(false);
+  const lastStepTimeRef = useRef(0);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -35,22 +41,30 @@ export default function Services() {
 
     const handleWheel = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
-      if (!isVisible) return;
+      const inFocus = rect.top >= -220 && rect.top <= window.innerHeight * 0.45;
 
-      if (e.deltaY > 0 && !isSpread) {
-        e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(true);
-          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+      if (!inFocus) return;
+
+      const now = Date.now();
+      const COOLDOWN_MS = 950; // 950ms cooldown ensures 1 scroll gesture = EXACTLY 1 step!
+
+      if (e.deltaY > 0) {
+        // Scroll DOWN inside section
+        if (step < 4) {
+          e.preventDefault();
+          if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+            lastStepTimeRef.current = now;
+            setStep((prev) => Math.min(prev + 1, 4));
+          }
         }
-      } else if (e.deltaY < 0 && isSpread && rect.top > -120 && rect.top < 180) {
-        e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(false);
-          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+      } else if (e.deltaY < 0) {
+        // Scroll UP inside section
+        if (step > 0 && rect.top >= -220) {
+          e.preventDefault();
+          if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+            lastStepTimeRef.current = now;
+            setStep((prev) => Math.max(prev - 1, 0));
+          }
         }
       }
     };
@@ -61,25 +75,25 @@ export default function Services() {
 
     const handleTouchMove = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
-      if (!isVisible) return;
+      const inFocus = rect.top >= -220 && rect.top <= window.innerHeight * 0.45;
+      if (!inFocus) return;
 
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY;
+      const now = Date.now();
+      const COOLDOWN_MS = 950;
 
-      if (deltaY > 25 && !isSpread) {
+      if (deltaY > 30 && step < 4) {
         if (e.cancelable) e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(true);
-          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+        if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+          lastStepTimeRef.current = now;
+          setStep((prev) => Math.min(prev + 1, 4));
         }
-      } else if (deltaY < -25 && isSpread && rect.top > -120 && rect.top < 180) {
+      } else if (deltaY < -30 && step > 0 && rect.top >= -220) {
         if (e.cancelable) e.preventDefault();
-        if (!isAnimatingRef.current) {
-          isAnimatingRef.current = true;
-          setIsSpread(false);
-          setTimeout(() => { isAnimatingRef.current = false; }, 1200);
+        if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+          lastStepTimeRef.current = now;
+          setStep((prev) => Math.max(prev - 1, 0));
         }
       }
     };
@@ -93,64 +107,111 @@ export default function Services() {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isSpread, isMobile]);
+  }, [step, isMobile]);
 
-  // Card Variants for stacked vs spread
-  const cardVariants = {
-    stacked: (index) => {
-      if (index === 0) {
-        return {
-          x: 0,
-          y: 0,
-          scale: 1,
-          rotate: 0,
-        };
-      }
-      const offsets = [
-        { x: 'calc(-100% - 1.4rem)', y: -8, rotate: -4, scale: 0.96 },
-        { x: 'calc(-200% - 2.8rem)', y: -16, rotate: 3.5, scale: 0.92 },
-        { x: 'calc(-300% - 4.2rem)', y: -24, rotate: -6, scale: 0.88 },
-      ];
-      return offsets[index - 1];
-    },
-    spread: {
-      x: 0,
-      y: 0,
-      scale: 1,
-      rotate: 0,
-    },
+  // Smooth animation spring transition
+  const springTransition = { duration: 0.85, ease: [0.16, 1, 0.3, 1] };
+
+  // Step 2: Heading -60% left off-screen, Steps 0, 1, 3, 4: Heading 0%
+  const getHeadingX = () => {
+    if (step === 2) return '-60%';
+    return '0%';
   };
 
-  const getTransition = (index) => ({
-    duration: 1.3,
-    ease: [0.16, 1, 0.3, 1],
-    delay: isSpread ? index * 0.16 : (3 - index) * 0.08,
-  });
+  // Step 2: Cards wrapper pans -580px left to reveal last cards (Card 3 & 4), Steps 0, 1, 3, 4: 0px
+  const getCardsWrapperX = () => {
+    if (step === 2) return '-580px';
+    return '0px';
+  };
 
-  const getCardProps = (index) => {
-    if (isMobile) {
-      return {};
+  // Card Positions
+  const getCardX = (index) => {
+    if (step === 1 || step === 2) {
+      // Steps 1 & 2: Spread out horizontally (Image 1)
+      return index * 310;
     } else {
-      return {
-        custom: index,
-        initial: 'stacked',
-        animate: isSpread ? 'spread' : 'stacked',
-        variants: cardVariants,
-        transition: getTransition(index),
-        style: { zIndex: 10 - index }
-      };
+      // Steps 0, 3, 4: Layered overlapping deck (Image 2)
+      return index * 65;
     }
   };
 
+  if (isMobile) {
+    return (
+      <section className="services services-mobile" id="services">
+        <div className="services-grid-layout">
+          <motion.div
+            className="services-head"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+          >
+            <span className="eyebrow eyebrow--static">
+              <span>What we do</span>
+            </span>
+            <h2>Marketing that moves<br />your business forward</h2>
+            <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
+          </motion.div>
+
+          <div className="bento-grid-mobile">
+            {/* Card 1 */}
+            <div className="bento-card card-a">
+              <div className="card-bottom-content">
+                <span className="big-stat-num">200%</span>
+                <h3 className="big-stat-heading">More leads generated</h3>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bento-card card-b">
+              <div className="card-stat-header roas-header">
+                <span className="roas-num">-35%</span>
+                <span className="roas-label">Lower Cost Per Lead</span>
+              </div>
+              <p className="card-static-desc">
+                Smarter campaigns designed to reduce wasted ad spend and improve conversions.
+              </p>
+              <div className="card-bottom-heading">Make every ad rupee count</div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bento-card card-c">
+              <div className="card-stat-header roas-header">
+                <div className="stat-num-row">
+                  <span className="up-arrow">↑</span>
+                  <span className="stat-val">120</span>
+                </div>
+                <span className="roas-label">More Traffic</span>
+              </div>
+              <p className="card-static-desc">Turn website visitors into enquiries with content.</p>
+              <div className="card-bottom-heading">Convert More Leads</div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bento-card card-d">
+              <div className="card-stat-header roas-header">
+                <span className="roas-num">3X</span>
+                <span className="roas-label">Better ROAS</span>
+              </div>
+              <p className="card-static-desc">
+                Data-driven advertising strategies focused on turning clicks into real revenue.
+              </p>
+              <div className="card-bottom-heading">Turn ad spend into growth</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="services" id="services" ref={sectionRef}>
+    <section className="services services-locked-container" id="services" ref={sectionRef}>
       <div className="services-grid-layout">
+        {/* Left Heading */}
         <motion.div
           className="services-head"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
-          variants={fadeInUp}
+          animate={{ x: getHeadingX() }}
+          transition={springTransition}
         >
           <span className="eyebrow eyebrow--static">
             <span>What we do</span>
@@ -159,173 +220,146 @@ export default function Services() {
           <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
         </motion.div>
 
-        <div className="bento-grid">
-        {/* Card 1 (Card A) - Top Layer */}
+        {/* Right Cards Deck */}
         <motion.div
-          className="bento-card card-a card-static"
-          {...getCardProps(0)}
+          className="bento-stack-wrapper"
+          animate={{ x: getCardsWrapperX() }}
+          transition={springTransition}
         >
-          <div className="card-bottom-content">
-            <span className="big-stat-num">200%</span>
-            <h3 className="big-stat-heading">More leads generated</h3>
-          </div>
-        </motion.div>
-
-        {/* Card 2 (Card B) - Emerges from behind Card A */}
-        <motion.div
-          className="bento-card card-b card-static"
-          {...getCardProps(1)}
-        >
-          <div className="card-stat-header roas-header">
-            <span className="roas-num">-35%</span>
-            <span className="roas-label">Lower Cost Per Lead</span>
-          </div>
-          <p className="card-static-desc">
-            Smarter campaigns designed to reduce wasted ad spend and improve conversions.
-          </p>
-
-          <div className="decreasing-bar-wrapper">
-            <svg viewBox="0 0 200 95" className="decreasing-bar-svg">
-              <line x1="10" y1="90" x2="190" y2="90" stroke="#111112" strokeWidth="1.5" strokeOpacity="0.4" />
-              <rect x="20" y="10" width="24" height="80" rx="4" fill="#111112" />
-              <rect x="60" y="30" width="24" height="60" rx="4" fill="#27272A" />
-              <rect x="100" y="48" width="24" height="42" rx="4" fill="#3F3F46" />
-              <rect x="140" y="64" width="24" height="26" rx="4" fill="#52525B" />
-
-              <polyline
-                points="48,20 80,36 112,48 148,65 178,80"
-                fill="none"
-                stroke="#71717A"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <polygon points="186,85 170,77 178,89" fill="#71717A" />
-            </svg>
-          </div>
-
-          <div className="card-bottom-heading">
-            Make every ad rupee count
-          </div>
-        </motion.div>
-
-        {/* Card 3 (Card C) - Emerges from behind Card A */}
-        <motion.div
-          className="bento-card card-c card-static"
-          {...getCardProps(2)}
-        >
-          <div className="card-stat-header roas-header">
-            <div className="stat-num-row">
-              <span className="up-arrow">↑</span>
-              <span className="stat-val">120</span>
+          {/* Card 1 */}
+          <motion.div
+            className="bento-card card-a"
+            animate={{ x: getCardX(0) }}
+            transition={springTransition}
+            style={{ zIndex: 4 }}
+          >
+            <div className="card-bottom-content">
+              <span className="big-stat-num">200%</span>
+              <h3 className="big-stat-heading">More leads generated</h3>
             </div>
-            <span className="roas-label">More Traffic</span>
-          </div>
-          <p className="card-static-desc">
-            Turn website visitors into enquiries with content.
-          </p>
+          </motion.div>
 
-          <div className="chart-box">
-            <div className="chart-y-axis">Leads</div>
-            <div className="chart-main">
-              <svg className="progress-chart-svg" viewBox="0 0 240 100" preserveAspectRatio="none">
-                <line x1="6" y1="2" x2="6" y2="92" stroke="#111112" strokeWidth="2" strokeOpacity="0.85" />
-                <line x1="6" y1="92" x2="238" y2="92" stroke="#111112" strokeWidth="2" strokeOpacity="0.85" />
+          {/* Card 2 */}
+          <motion.div
+            className="bento-card card-b"
+            animate={{ x: getCardX(1) }}
+            transition={springTransition}
+            style={{ zIndex: 3 }}
+          >
+            <div className="card-stat-header roas-header">
+              <span className="roas-num">-35%</span>
+              <span className="roas-label">Lower Cost Per Lead</span>
+            </div>
+            <p className="card-static-desc">
+              Smarter campaigns designed to reduce wasted ad spend and improve conversions.
+            </p>
 
-                <polygon
-                  points="
-                    6,90 
-                    16,87 
-                    26,81 
-                    36,77 
-                    46,63 
-                    56,85 
-                    66,83 
-                    76,73 
-                    86,71 
-                    96,61 
-                    106,61 
-                    116,61 
-                    126,41 
-                    136,63 
-                    146,61 
-                    156,69 
-                    166,43 
-                    176,37 
-                    186,61 
-                    196,39 
-                    206,29 
-                    216,13 
-                    226,25 
-                    238,4 
-                    238,90
-                  "
-                  fill="#111112"
-                  fillOpacity="0.85"
+            <div className="decreasing-bar-wrapper">
+              <svg viewBox="0 0 200 80" className="decreasing-bar-svg">
+                <line x1="10" y1="75" x2="190" y2="75" stroke="#374151" strokeWidth="1.5" strokeOpacity="0.6" />
+                <rect x="20" y="10" width="22" height="65" rx="3" fill="#FF5722" />
+                <rect x="60" y="26" width="22" height="49" rx="3" fill="#374151" />
+                <rect x="100" y="40" width="22" height="35" rx="3" fill="#4B5563" />
+                <rect x="140" y="52" width="22" height="23" rx="3" fill="#6B7280" />
+
+                <polyline
+                  points="48,18 80,30 112,42 148,55 178,68"
+                  fill="none"
+                  stroke="#FF5722"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-
-                <circle cx="230" cy="14" r="3.5" fill="#FF5A1F" />
-                <text x="194" y="13" fill="#FF5A1F" fontSize="13" fontWeight="bold" fontFamily="sans-serif">120</text>
+                <polygon points="184,72 170,65 176,76" fill="#FF5722" />
               </svg>
-              <div className="chart-x-axis">Date</div>
             </div>
-          </div>
 
-          <div className="card-bottom-heading">
-            Convert More Leads
-          </div>
-        </motion.div>
+            <div className="card-bottom-heading">
+              Make every ad rupee count
+            </div>
+          </motion.div>
 
-        {/* Card 4 (Card D) - Emerges from behind Card A */}
-        <motion.div
-          className="bento-card card-d card-static"
-          {...getCardProps(3)}
-        >
-          <div className="card-stat-header roas-header">
-            <span className="roas-num">3X</span>
-            <span className="roas-label">Better ROAS</span>
-          </div>
-          <p className="card-static-desc">
-            Data-driven advertising strategies focused on turning clicks into real revenue.
-          </p>
+          {/* Card 3 */}
+          <motion.div
+            className="bento-card card-c"
+            animate={{ x: getCardX(2) }}
+            transition={springTransition}
+            style={{ zIndex: 2 }}
+          >
+            <div className="card-stat-header roas-header">
+              <div className="stat-num-row">
+                <span className="up-arrow">↑</span>
+                <span className="stat-val">120</span>
+              </div>
+              <span className="roas-label">More Traffic</span>
+            </div>
+            <p className="card-static-desc">
+              Turn website visitors into enquiries with content.
+            </p>
 
-          <div className="pie-chart-right-wrapper">
-            <svg viewBox="0 0 210 130" className="pie-chart-svg-large">
-              <path
-                d="M 130 65 L 130 17 A 48 48 0 1 1 84.35 79.83 Z"
-                fill="#111112"
-                stroke="#E9E8E4"
-                strokeWidth="1.8"
-              />
-              <path
-                d="M 130 65 L 84.35 79.83 A 48 48 0 0 1 130 17 Z"
-                fill="#71717A"
-                stroke="#E9E8E4"
-                strokeWidth="1.8"
-              />
+            <div className="chart-box">
+              <div className="chart-main">
+                <svg className="progress-chart-svg" viewBox="0 0 220 70" preserveAspectRatio="none">
+                  <line x1="6" y1="2" x2="6" y2="68" stroke="#1A202C" strokeWidth="1.8" strokeOpacity="0.85" />
+                  <line x1="6" y1="68" x2="218" y2="68" stroke="#1A202C" strokeWidth="1.8" strokeOpacity="0.85" />
 
-              <polyline
-                points="10,28 75,28 96,52"
-                fill="none"
-                stroke="#111112"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <polygon points="186,85 170,77 178,89" fill="#111112" />
+                  <polygon
+                    points="
+                      6,66 16,63 26,58 36,54 46,43 56,60 66,58 76,50 86,48 96,40 106,40 
+                      116,40 126,26 136,43 146,40 156,47 166,28 176,23 186,40 196,25 
+                      206,17 216,6 218,66
+                    "
+                    fill="#1A202C"
+                    fillOpacity="0.85"
+                  />
+                  <circle cx="212" cy="8" r="3.5" fill="#EA580C" />
+                </svg>
+              </div>
+            </div>
 
-              <text x="10" y="20" fill="#111112" fontSize="13" fontWeight="800" fontFamily="Poppins, sans-serif">
-                30% revenue
-              </text>
-            </svg>
-          </div>
+            <div className="card-bottom-heading">
+              Convert More Leads
+            </div>
+          </motion.div>
 
-          <div className="card-bottom-heading">
-            Turn ad spend into growth
-          </div>
+          {/* Card 4 */}
+          <motion.div
+            className="bento-card card-d"
+            animate={{ x: getCardX(3) }}
+            transition={springTransition}
+            style={{ zIndex: 1 }}
+          >
+            <div className="card-stat-header roas-header">
+              <span className="roas-num">3X</span>
+              <span className="roas-label">Better ROAS</span>
+            </div>
+            <p className="card-static-desc">
+              Data-driven advertising strategies focused on turning clicks into real revenue.
+            </p>
+
+            <div className="pie-chart-right-wrapper">
+              <svg viewBox="0 0 180 90" className="pie-chart-svg-large">
+                <path
+                  d="M 110 45 L 110 10 A 35 35 0 1 1 76.8 55.8 Z"
+                  fill="#FF6600"
+                  stroke="#111111"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M 110 45 L 76.8 55.8 A 35 35 0 0 1 110 10 Z"
+                  fill="#374151"
+                  stroke="#111111"
+                  strokeWidth="1.5"
+                />
+              </svg>
+            </div>
+
+            <div className="card-bottom-heading">
+              Turn ad spend into growth
+            </div>
+          </motion.div>
         </motion.div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 }
