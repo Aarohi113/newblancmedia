@@ -69,7 +69,7 @@ export default function Products() {
 
   return (
     <section className="products-showcase-section" ref={sectionRef} id="products">
-      {/* Background Faded Grey Concentric Rings */}
+      {/* Background Concentric Rings */}
       <div className="bg-ring ring-small" />
       <div className="bg-ring ring-large" />
 

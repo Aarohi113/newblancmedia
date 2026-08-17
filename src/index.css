@@ -720,11 +720,13 @@ body {
 /* Stacked Deck Container (Horizontal Row) */
 .bento-stack-wrapper {
   position: relative;
-  width: 1160px;
+  width: 1220px;
   height: 320px;
   flex-shrink: 0;
   margin-left: 3rem;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Reduced Compact Bento Card (Vertical aspect ratio like reference images) */
@@ -746,6 +748,9 @@ body {
   overflow: hidden;
   box-shadow: 0 16px 40px -10px rgba(17, 17, 18, 0.16);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .bento-card:hover {
@@ -1624,29 +1629,29 @@ body {
   isolation: isolate;
 }
 
-/* Background Faded Grey Concentric Semi-Circle Rings (Anchored at Section Bottom) */
+/* Background Concentric Rings Centered Behind Products Stage */
 .bg-ring {
   position: absolute;
   left: 50%;
-  bottom: -38%;
-  transform: translateX(-50%);
+  top: 52%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
 }
 
 .bg-ring.ring-small {
-  width: min(740px, 95vw);
-  height: min(740px, 95vw);
-  border: 24px solid rgba(17, 17, 18, 0.16);
-  filter: blur(12px);
+  width: min(520px, 82vw);
+  height: min(520px, 82vw);
+  border: 14px solid rgba(17, 17, 18, 0.12);
+  filter: blur(8px);
 }
 
 .bg-ring.ring-large {
-  width: min(1220px, 155vw);
-  height: min(1220px, 155vw);
-  border: 32px solid rgba(17, 17, 18, 0.12);
-  filter: blur(18px);
+  width: min(820px, 125vw);
+  height: min(820px, 125vw);
+  border: 20px solid rgba(17, 17, 18, 0.08);
+  filter: blur(12px);
 }
 
 .products-container {
@@ -1663,7 +1668,7 @@ body {
   align-items: center;
   text-align: center;
   max-width: 780px;
-  margin: 0 auto 3.5rem auto;
+  margin: 0 auto 1.2rem auto;
 }
 
 .products-main-title {
@@ -1722,11 +1727,11 @@ body {
 .products-stage {
   position: relative;
   width: 100%;
-  min-height: 520px;
+  min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: -2.2rem;
 }
 
 .cards-orbit-layer {
@@ -1798,22 +1803,22 @@ body {
 
 /* 4 Cardinal Positions matching reference image */
 .product-side-card.card-top-left {
-  top: 6%;
+  top: 0%;
   left: 3%;
 }
 
 .product-side-card.card-bottom-left {
-  bottom: 14%;
+  bottom: 18%;
   left: 2%;
 }
 
 .product-side-card.card-top-right {
-  top: 14%;
+  top: 7%;
   right: 3%;
 }
 
 .product-side-card.card-bottom-right {
-  bottom: 16%;
+  bottom: 20%;
   right: 2%;
 }
 

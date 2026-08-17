@@ -12,14 +12,16 @@ const fadeInUp = {
 
 export default function Services() {
   const sectionRef = useRef(null);
+  const wrapperRef = useRef(null);
+
   // Steps:
-  // Step 0: Heading left + Layered Cards (Image 2)
-  // Step 1: Page locked + Cards spread out horizontally into a row
-  // Step 2: Page locked + Horizontal scroll (Heading -60% left off-screen + last cards visible on right)
-  // Step 3: Page locked + Heading slides back in + Cards layer back into stack
-  // Step 4: Section unlocks + Vertical page scroll down to next section
+  // Step 0: Section in view from Hero -> Cards in layered stack (overlapping)
+  // Step 1: 1st scroll gesture -> Cards expand right horizontally into row
+  // Step 2: 2nd scroll gesture -> Horizontal scroll pans wrapper left so last card is inside screen right edge
+  // Step 3: 3rd scroll gesture -> Section unlocked for natural vertical scroll down to Products
   const [step, setStep] = useState(0);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860);
+  const [maxShift, setMaxShift] = useState(580);
   const lastStepTimeRef = useRef(0);
 
   useEffect(() => {
@@ -30,6 +32,28 @@ export default function Services() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Calculate max horizontal scroll shift once on mount and window resize
+  useEffect(() => {
+    if (isMobile) return;
+
+    const calculateShift = () => {
+      if (!wrapperRef.current) return;
+      const rect = wrapperRef.current.getBoundingClientRect();
+      const totalCardsWidth = 1220; // 4 cards total width (3 * 310px + 270px card width + 20px padding)
+      const windowWidth = window.innerWidth;
+      const rightMargin = 60; // 60px safe margin inside right screen edge
+
+      const restLeft = rect.left;
+      const neededShift = (restLeft + totalCardsWidth) - (windowWidth - rightMargin);
+      const safeShift = Math.max(560, Math.min(Math.round(neededShift > 0 ? neededShift : 640), 950));
+      setMaxShift(safeShift);
+    };
+
+    calculateShift();
+    window.addEventListener('resize', calculateShift);
+    return () => window.removeEventListener('resize', calculateShift);
+  }, [isMobile]);
 
   useEffect(() => {
     if (isMobile) return;
@@ -46,20 +70,20 @@ export default function Services() {
       if (!inFocus) return;
 
       const now = Date.now();
-      const COOLDOWN_MS = 950; // 950ms cooldown ensures 1 scroll gesture = EXACTLY 1 step!
+      const COOLDOWN_MS = 750;
 
       if (e.deltaY > 0) {
         // Scroll DOWN inside section
-        if (step < 4) {
+        if (step < 3) {
           e.preventDefault();
           if (now - lastStepTimeRef.current > COOLDOWN_MS) {
             lastStepTimeRef.current = now;
-            setStep((prev) => Math.min(prev + 1, 4));
+            setStep((prev) => Math.min(prev + 1, 3));
           }
         }
       } else if (e.deltaY < 0) {
         // Scroll UP inside section
-        if (step > 0 && rect.top >= -220) {
+        if (step > 0 && rect.top >= -120) {
           e.preventDefault();
           if (now - lastStepTimeRef.current > COOLDOWN_MS) {
             lastStepTimeRef.current = now;
@@ -81,15 +105,15 @@ export default function Services() {
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY;
       const now = Date.now();
-      const COOLDOWN_MS = 950;
+      const COOLDOWN_MS = 750;
 
-      if (deltaY > 30 && step < 4) {
+      if (deltaY > 30 && step < 3) {
         if (e.cancelable) e.preventDefault();
         if (now - lastStepTimeRef.current > COOLDOWN_MS) {
           lastStepTimeRef.current = now;
-          setStep((prev) => Math.min(prev + 1, 4));
+          setStep((prev) => Math.min(prev + 1, 3));
         }
-      } else if (deltaY < -30 && step > 0 && rect.top >= -220) {
+      } else if (deltaY < -30 && step > 0 && rect.top >= -120) {
         if (e.cancelable) e.preventDefault();
         if (now - lastStepTimeRef.current > COOLDOWN_MS) {
           lastStepTimeRef.current = now;
@@ -112,27 +136,25 @@ export default function Services() {
   // Smooth animation spring transition
   const springTransition = { duration: 0.85, ease: [0.16, 1, 0.3, 1] };
 
-  // Step 2: Heading -60% left off-screen, Steps 0, 1, 3, 4: Heading 0%
+  // Step 2 & 3: Heading shifts left to give room for horizontal scroll
   const getHeadingX = () => {
-    if (step === 2) return '-60%';
+    if (step >= 2) return '-65%';
     return '0%';
   };
 
-  // Step 2: Cards wrapper pans -580px left to reveal last cards (Card 3 & 4), Steps 0, 1, 3, 4: 0px
+  // Step 2 & 3: Cards wrapper shifts left by maxShift to reveal last card
   const getCardsWrapperX = () => {
-    if (step === 2) return '-580px';
+    if (step >= 2) return `-${maxShift}px`;
     return '0px';
   };
 
-  // Card Positions
+  // Step 0: Layered overlapping deck (index * 65)
+  // Step 1, 2, 3: Expanded out horizontally into row (index * 310)
   const getCardX = (index) => {
-    if (step === 1 || step === 2) {
-      // Steps 1 & 2: Spread out horizontally (Image 1)
-      return index * 310;
-    } else {
-      // Steps 0, 3, 4: Layered overlapping deck (Image 2)
+    if (step === 0) {
       return index * 65;
     }
+    return index * 310;
   };
 
   if (isMobile) {
@@ -222,6 +244,7 @@ export default function Services() {
 
         {/* Right Cards Deck */}
         <motion.div
+          ref={wrapperRef}
           className="bento-stack-wrapper"
           animate={{ x: getCardsWrapperX() }}
           transition={springTransition}
@@ -363,3 +386,4 @@ export default function Services() {
     </section>
   );
 }
+
