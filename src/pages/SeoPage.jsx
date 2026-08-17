@@ -378,7 +378,7 @@ export default function SeoPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
                   >
-                    From Local Visibility to Local Action.
+                    Strategy Before Everything.
                   </motion.p>
                   <motion.p
                     className="sub-desc"
@@ -387,7 +387,7 @@ export default function SeoPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
                   >
-                    We focus on making your business easier to find and easier to choose.
+                    We don’t chase rankings just for the sake of rankings. We focus on the searches that have the potential to bring the right audience to your business.
                   </motion.p>
                 </div>
               </div>
@@ -400,7 +400,7 @@ export default function SeoPage() {
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
               >
                 <a href="#contact" className="seo-primary-btn capsule-cta-btn orange-btn">
-                  <span>Get Your GMB Audit</span>
+                  <span>Let’s Grow Your Search Presence</span>
                   <span className="seo-btn-arrow">→</span>
                 </a>
               </motion.div>
