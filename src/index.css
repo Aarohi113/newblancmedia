@@ -1886,14 +1886,17 @@ body {
     top: 0;
     left: 0;
   }
+
   .product-side-card.card-bottom-left {
     bottom: 0;
     left: 0;
   }
+
   .product-side-card.card-top-right {
     top: 0;
     right: 0;
   }
+
   .product-side-card.card-bottom-right {
     bottom: 0;
     right: 0;
@@ -2563,5 +2566,877 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+}
+
+/* ==========================================================================
+   FLAIRUP INSPIRED LAYOUT STYLES (BLACK/GREY + ORANGE ACCENTS)
+   ========================================================================== */
+
+.seo-page-wrapper {
+  background-color: #f4f4f4;
+  color: #111112;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: 6.5rem;
+}
+
+.seo-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* FLAIR HERO ARCHITECTURE */
+.flair-hero-section {
+  position: relative;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  text-align: center;
+  background: linear-gradient(180deg, #FAFAFA 0%, #E5E5E8 55%, #F4F4F4 100%);
+  box-sizing: border-box;
+}
+
+.seo-hero-bg-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.8) 0%, rgba(220, 220, 224, 0.25) 65%, transparent 100%);
+  pointer-events: none;
+}
+
+.flair-hero-header {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.flair-title-wrapper {
+  overflow: hidden;
+  padding: 0.5rem 0;
+}
+
+.flair-giant-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(3.5rem, 11vw, 8.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #111112;
+  display: inline-block;
+  background: none;
+  -webkit-text-fill-color: #111112;
+}
+
+.flair-hero-content-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.flair-decorative-icon {
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .flair-decorative-icon {
+    display: none;
+  }
+}
+
+.flair-hero-center-box {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flair-hero-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.4rem;
+  background: rgba(255, 85, 0, 0.08);
+  border: 1.5px solid rgba(255, 85, 0, 0.3);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #FF5500;
+  letter-spacing: 0.12em;
+  margin-bottom: 1.8rem;
+  box-shadow: 0 4px 20px rgba(255, 85, 0, 0.08);
+}
+
+.flair-hero-subheading {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+  font-weight: 900;
+  color: #111112;
+  -webkit-text-stroke: unset;
+  line-height: 1.18;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.flair-hero-subheading .hero-sub-line {
+  display: block;
+  min-height: 1.2em;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  color: #FF5500;
+  font-weight: 500;
+  margin-left: 3px;
+  animation: blinkCursor 0.75s infinite;
+}
+
+@keyframes blinkCursor {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.flair-hero-lead-text {
+  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+  line-height: 1.7;
+  color: #575552;
+  font-weight: 500;
+  margin-bottom: 2.2rem;
+  max-width: 720px;
+}
+
+.flair-hero-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.capsule-cta-btn,
+.seo-primary-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  background-color: #111112 !important;
+  color: #FFFFFF !important;
+  border-radius: 9999px !important;
+  padding: 1.1rem 2.6rem !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.35s ease !important;
+  cursor: pointer !important;
+}
+
+.capsule-cta-btn:hover,
+.seo-primary-btn:hover {
+  background-color: #FF5500 !important;
+  color: #FFFFFF !important;
+  border-color: #FF5500 !important;
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 12px 35px rgba(255, 85, 0, 0.4) !important;
+}
+
+.seo-btn-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.capsule-cta-btn:hover .seo-btn-arrow,
+.seo-primary-btn:hover .seo-btn-arrow {
+  transform: translateX(4px);
+}
+
+.flair-scroll-anchor {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.flair-scroll-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1.4rem;
+  background: #18181c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  color: #E2E0DB;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.flair-scroll-pill:hover {
+  background: #FF5500;
+  color: #FFFFFF;
+  border-color: #FF5500;
+}
+
+.scroll-icon-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SECTION 02: POWER OF SEO (MATCHING REFERENCE LAYOUT) */
+.flair-power-section {
+  padding: 3rem 0 4.5rem 0;
+  background: linear-gradient(180deg, #f4f4f4 0%, #e2e2e4 50%, #f4f4f4 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.seo-container-full {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.seo-full-width-header-box {
+  width: 100%;
+  text-align: center;
+}
+
+.flair-giant-power-title {
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  font-size: clamp(2rem, 4.8vw, 5.4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #111112;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 1.6rem;
+  width: 100%;
+}
+
+.flair-giant-power-title .power-title-line {
+  display: block;
+}
+
+.power-center-text-block {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.seo-body-lead.centered,
+.power-body-desc.centered {
+  text-align: center;
+  color: #4b4b4e;
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  line-height: 1.65;
+  margin: 0 auto;
+}
+
+.power-body-desc.centered strong {
+  color: #111112;
+}
+
+/* SECTION 03: TWO CARDS LAYOUT (LIGHT GREY & DARK BLACK MATCHING REFERENCE) */
+.two-cards-section {
+  padding: 1.2rem 0 3.5rem 0;
+  background: #f4f4f4;
+}
+
+.two-cards-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+.dual-card {
+  border-radius: 28px;
+  padding: 2.2rem 2.2rem;
+  margin: 0 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.dual-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* CARD 1: LIGHT GREY CARD */
+.dual-card.light-grey-card {
+  background: #E4E3DF;
+  color: #111112;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* CARD 2: DARK BLACK CARD */
+.dual-card.dark-black-card {
+  background: #111112;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* TOP RIGHT CIRCULAR ICON BADGE */
+.dual-card-badge {
+  position: absolute;
+  top: 1.8rem;
+  right: 1.8rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #111112;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.dual-card-badge.orange {
+  background: #FF5500;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(255, 85, 0, 0.35);
+}
+
+.dual-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #111112;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  padding-right: 3.5rem;
+}
+
+.dual-card-title.white-text {
+  color: #FFFFFF;
+}
+
+.dual-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.2rem;
+}
+
+.dual-card-list li {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #27272a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dual-card-list .check-dot {
+  color: #FF5500;
+  font-weight: 900;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.dark-card-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.dark-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.dark-card-content .highlight-lead {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.3;
+}
+
+.dark-card-content .sub-desc {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: #A0A0A5;
+}
+
+.orange-btn {
+  background: #FF5500 !important;
+  border-color: #FF5500 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 10px 30px rgba(255, 85, 0, 0.35) !important;
+}
+
+.orange-btn:hover {
+  background: #E64A00 !important;
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 15px 40px rgba(255, 85, 0, 0.5) !important;
+}
+
+@media (max-width: 950px) {
+  .two-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.seo-section-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #FF5500;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.seo-section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  color: #111112;
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+
+.seo-orange-highlight {
+  color: #FF5500;
+}
+
+.seo-body-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #575552;
+}
+
+.power-body-text {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #575552;
+}
+
+.flair-exp-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  background: rgba(255, 85, 0, 0.06);
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  border-radius: 16px;
+  margin: 1.8rem 0;
+}
+
+.exp-num-badge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #FF5500;
+  line-height: 1;
+}
+
+.exp-text {
+  font-size: 0.92rem;
+  color: #575552;
+}
+
+.exp-text strong {
+  display: block;
+  font-size: 1.05rem;
+  color: #111112;
+  margin-bottom: 0.3rem;
+}
+
+.flair-frame {
+  min-height: 380px;
+}
+
+/* SECTION 03: WHY CHOOSE BLANC */
+.flair-why-section {
+  padding: 6rem 0;
+}
+
+.flair-why-card-container {
+  background: linear-gradient(135deg, #141416 0%, #0c0c0d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  padding: 4rem 3.5rem;
+}
+
+.flair-why-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.flair-why-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin-bottom: 1.4rem;
+}
+
+.flair-why-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #A0A0A5;
+  margin-bottom: 1.2rem;
+}
+
+.flair-why-paragraph.highlight {
+  color: #FFFFFF;
+  font-weight: 600;
+  padding-left: 1rem;
+  border-left: 3px solid #FF5500;
+}
+
+.rocket-frame {
+  min-height: 320px;
+}
+
+.rocket-icon-glow {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 85, 0, 0.1);
+  border: 1.5px solid rgba(255, 85, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 0 30px rgba(255, 85, 0, 0.2);
+}
+
+/* SECTION 04: APPROACH STACKED CARDS */
+.flair-approach-section {
+  padding: 6rem 0;
+  background: #09090b;
+}
+
+.flair-approach-cards-stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+.flair-approach-card {
+  background: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 2.2rem 1.8rem;
+  position: relative;
+  transition: all 0.35s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.flair-approach-card:hover {
+  transform: translateY(-8px);
+  background: #19191d;
+  border-color: rgba(255, 85, 0, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.approach-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.approach-card-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #FF5500;
+  background: rgba(255, 85, 0, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+}
+
+.approach-card-icon {
+  color: #A0A0A5;
+  transition: color 0.3s ease;
+}
+
+.flair-approach-card:hover .approach-card-icon {
+  color: #FF5500;
+}
+
+.approach-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.9rem;
+}
+
+.approach-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #9CA3AF;
+  flex: 1;
+}
+
+.approach-card-line {
+  height: 2px;
+  background: linear-gradient(90deg, #FF5500 0%, transparent 100%);
+  margin-top: 1.5rem;
+  width: 50%;
+  transition: width 0.3s ease;
+}
+
+.flair-approach-card:hover .approach-card-line {
+  width: 100%;
+}
+
+/* SECTION 05: TYPES OF SEO GRID */
+.flair-types-section {
+  padding: 6rem 0;
+}
+
+.flair-types-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.flair-type-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 1.8rem 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.flair-type-card:hover {
+  background: #141416;
+  border-color: rgba(255, 85, 0, 0.3);
+  transform: translateY(-4px);
+}
+
+.type-tag-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FF5500;
+  background: rgba(255, 85, 0, 0.08);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  margin-bottom: 0.8rem;
+}
+
+.type-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.6rem;
+}
+
+.type-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #9CA3AF;
+}
+
+/* SECTION 06: CONSULTATION & FAQ ACCORDION */
+.flair-faq-section {
+  padding: 6rem 0 8rem 0;
+  background: #0f0f11;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.flair-faq-wrapper {
+  background: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  padding: 4rem 3.5rem;
+}
+
+.flair-faq-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.flair-consultation-box {
+  background: rgba(255, 85, 0, 0.05);
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  border-radius: 24px;
+  padding: 2.8rem 2.2rem;
+}
+
+.consultation-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #FF5500;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.consultation-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+}
+
+.consultation-text {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #D1D5DB;
+  margin-bottom: 1.5rem;
+}
+
+.faq-section-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 2rem;
+}
+
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.accordion-item {
+  background: #1c1c20;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordion-item.open {
+  border-color: rgba(255, 85, 0, 0.35);
+  background: #212126;
+}
+
+.accordion-header {
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.accordion-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.accordion-toggle-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 85, 0, 0.1);
+  color: #FF5500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.open .accordion-toggle-icon {
+  background: #FF5500;
+  color: #FFFFFF;
+}
+
+.accordion-body {
+  padding: 0 1.6rem 1.4rem 1.6rem;
+  overflow: hidden;
+}
+
+.accordion-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #A0A0A5;
+}
+
+/* RESPONSIVE BREAKPOINTS FOR FLAIRUP STYLES */
+@media (max-width: 1100px) {
+  .flair-approach-cards-stack {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .flair-types-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+
+  .flair-power-grid,
+  .flair-why-grid,
+  .flair-faq-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .flair-why-card-container,
+  .flair-faq-wrapper {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .flair-approach-cards-stack,
+  .flair-types-grid {
+    grid-template-columns: 1fr;
   }
 }

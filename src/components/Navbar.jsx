@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  const getHref = (hash) => {
+    return isHome ? hash : `/${hash}`;
+  };
 
   return (
     <motion.header
@@ -13,21 +20,21 @@ export default function Navbar() {
     >
       <nav className="capsule-navbar">
         {/* Brand Logo */}
-        <a href="#" className="nav-logo" aria-label="Blanc Media Home">
+        <Link to="/" className="nav-logo" aria-label="Blanc Media Home">
           <img src="/blanc-logo-dark.webp" alt="Blanc Media" className="nav-logo-img" />
-        </a>
+        </Link>
 
         {/* Desktop Nav Links */}
         <ul className="nav-links">
-          <li><a href="#services">Services</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#process">Process</a></li>
+          <li><a href={getHref("#services")}>Services</a></li>
+          <li><a href={getHref("#products")}>Work</a></li>
+          <li><a href={getHref("#about")}>About</a></li>
+          <li><a href={getHref("#process")}>Process</a></li>
         </ul>
 
         {/* Action Button */}
         <div className="nav-actions">
-          <a href="#contact" className="nav-cta-btn">
+          <a href={getHref("#contact")} className="nav-cta-btn">
             <span>Get in Touch</span>
             <span className="cta-arrow">→</span>
           </a>
@@ -53,11 +60,11 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -10, scale: 0.96 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
-            <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a>
-            <a href="#work" onClick={() => setMobileMenuOpen(false)}>Work</a>
-            <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
-            <a href="#process" onClick={() => setMobileMenuOpen(false)}>Process</a>
-            <a href="#contact" className="mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>
+            <a href={getHref("#services")} onClick={() => setMobileMenuOpen(false)}>Services</a>
+            <a href={getHref("#products")} onClick={() => setMobileMenuOpen(false)}>Work</a>
+            <a href={getHref("#about")} onClick={() => setMobileMenuOpen(false)}>About</a>
+            <a href={getHref("#process")} onClick={() => setMobileMenuOpen(false)}>Process</a>
+            <a href={getHref("#contact")} className="mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>
               Get in Touch →
             </a>
           </motion.div>

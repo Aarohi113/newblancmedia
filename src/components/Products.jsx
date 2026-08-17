@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
 import cardPerfImg from '../assets/card_perf.jpg';
 import cardMarketImg from '../assets/card_market.jpg';
 
@@ -23,7 +24,8 @@ const sideCards = [
     title: 'SEARCH ENGINE OPTIMIZATION',
     desc: 'Comprehensive keyword strategy, technical SEO audits, and link building to boost rank.',
     link: 'See full list',
-    image: cardPerfImg
+    image: cardPerfImg,
+    path: '/seo',
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ const sideCards = [
     title: 'PAY PER CLICK ADS',
     desc: 'High-ROI Google Ads, Meta Ads, and targeted PPC campaigns driving qualified leads.',
     link: 'See full list',
-    image: cardMarketImg
+    image: cardMarketImg,
+    path: '/ppc-ads',
   },
   {
     id: 3,
@@ -39,7 +42,8 @@ const sideCards = [
     title: 'SOCIAL MEDIA MANAGEMENT',
     desc: 'Strategic social media content, audience engagement, brand building, and creative designs.',
     link: 'See full list',
-    image: cardPerfImg
+    image: cardPerfImg,
+    path: '/social-media-management',
   },
   {
     id: 4,
@@ -47,12 +51,14 @@ const sideCards = [
     title: 'WEBSITE DEVELOPMENT',
     desc: 'Modern, ultra-fast, responsive web development built for high conversion and UX.',
     link: 'See full list',
-    image: cardMarketImg
+    image: cardMarketImg,
+    path: '/web-development',
   }
 ];
 
 export default function Products() {
   const sectionRef = useRef(null);
+  const navigate = useNavigate();
 
   // Track scroll progress of the section
   const { scrollYProgress } = useScroll({
@@ -89,8 +95,6 @@ export default function Products() {
           <p className="products-main-sub">
             We connect members with high-performance ad scaling, precision analytics, customized strategies, and proactive growth care.
           </p>
-
-
         </motion.div>
 
         {/* Central Stage: Phone Image + 4 Floating Side Cards */}
@@ -127,12 +131,13 @@ export default function Products() {
               <motion.div
                 key={card.id}
                 className={`product-side-card card-${card.position}`}
-                style={{ rotate: counterRotateAngle }}
+                style={{ rotate: counterRotateAngle, cursor: 'pointer' }}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={fadeInUp}
                 custom={0.2 + idx * 0.12}
+                onClick={() => navigate(card.path)}
               >
                 <div className="card-thumb-wrap">
                   <img src={card.image} alt={card.title} className="card-thumb-img" />
@@ -141,9 +146,9 @@ export default function Products() {
                 <div className="card-body">
                   <h4 className="card-title">{card.title}</h4>
                   <p className="card-desc">{card.desc}</p>
-                  <a href="#contact" className="card-link">
+                  <Link to={card.path} className="card-link" onClick={(e) => e.stopPropagation()}>
                     <span>{card.link}</span>
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             ))}
