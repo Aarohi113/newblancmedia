@@ -34,7 +34,7 @@ const sideCards = [
     desc: 'High-ROI Google Ads, Meta Ads, and targeted PPC campaigns driving qualified leads.',
     link: 'See full list',
     image: cardMarketImg,
-    path: '/ppc-ads',
+    path: '/gmb',
   },
   {
     id: 3,

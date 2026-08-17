@@ -16,148 +16,12 @@ const fadeInUp = {
   }),
 };
 
-const approachCards = [
-  {
-    num: '01',
-    title: 'On-Page SEO',
-    desc: 'At THE BLANC, we optimize your website’s structural elements including meta tags, title tags, heading tags, internal linking, and semantic content relevance to ensure search engines accurately index and rank your pages.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-      </svg>
-    ),
-  },
-  {
-    num: '02',
-    title: 'Off-Page SEO',
-    desc: 'Enhancing your domain authority through high-quality backlink acquisition, digital PR outreach, ethical brand mentions, and strategic authority building that establishes trust with search engines.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-      </svg>
-    ),
-  },
-  {
-    num: '03',
-    title: 'Local SEO',
-    desc: 'Dominate geo-targeted search results and Google Maps listings. We optimize your Google Business Profile, local citations, and customer review workflows to drive high-intent local customer inquiries.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
-    ),
-  },
-  {
-    num: '04',
-    title: 'Technical SEO',
-    desc: 'Resolving behind-the-scenes site performance metrics. We optimize site speed, Core Web Vitals, mobile responsiveness, SSL security, schema markup, and crawlability for a flawless technical base.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-  },
-  {
-    num: '05',
-    title: 'Content Strategy & Optimization',
-    desc: 'Content is king in organic search. Our team crafts intent-driven, keyword-rich copy that engages your target audience, answers customer search queries, and builds long-term domain relevance.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polygon points="12 2 2 7 12 12 22 7 12 2" />
-        <polyline points="2 17 12 22 22 17" />
-        <polyline points="2 12 12 17 22 12" />
-      </svg>
-    ),
-  },
-  {
-    num: '06',
-    title: 'SEO Audits & Reporting',
-    desc: 'Transparent real-time reporting dashboards tracking key performance metrics like organic rankings, search traffic growth, click-through rates, and lead conversions with monthly strategic calls.',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <line x1="18" y1="20" x2="18" y2="10" />
-        <line x1="12" y1="20" x2="12" y2="4" />
-        <line x1="6" y1="20" x2="6" y2="14" />
-      </svg>
-    ),
-  },
-];
-
-const seoTypes = [
-  {
-    title: 'Dental & Medical SEO',
-    desc: 'Ranking clinics for competitive local terms like "best dentist" or specialized treatment keywords.',
-    tag: 'Healthcare',
-  },
-  {
-    title: 'Hospital & Care SEO',
-    desc: 'Targeting emergency services, specialty departments, and local healthcare search queries.',
-    tag: 'Hospitals',
-  },
-  {
-    title: 'Lawyer & Firm SEO',
-    desc: 'Positioning law firms for high-value legal queries, practice area pages, and client consultation leads.',
-    tag: 'Legal',
-  },
-  {
-    title: 'Financial & Wealth SEO',
-    desc: 'Optimizing wealth managers, accountants, and insurance agencies for targeted financial search intent.',
-    tag: 'Finance',
-  },
-  {
-    title: 'Doctor & Clinic SEO',
-    desc: 'Enhancing local doctor visibility through GMB management, patient reviews, and medical content.',
-    tag: 'Practitioners',
-  },
-  {
-    title: 'Restaurant & Hospitality SEO',
-    desc: 'Driving foot traffic and online orders by dominating local food, dining, and menu search queries.',
-    tag: 'Dining',
-  },
-  {
-    title: 'Hotel & Travel SEO',
-    desc: 'Ranking hotels and venues for travel, accommodation, luxury stays, and event booking keywords.',
-    tag: 'Hospitality',
-  },
-  {
-    title: 'E-Commerce & Retail SEO',
-    desc: 'Optimizing product pages, category taxonomies, and shopping feeds to scale organic sales revenue.',
-    tag: 'E-Commerce',
-  },
-];
-
-const faqList = [
-  {
-    question: 'What is SEO?',
-    answer: 'SEO (Search Engine Optimization) is the process of optimizing a website to rank higher on search engine result pages (SERPs) for relevant keywords. The goal of SEO is to increase organic (non-paid) traffic to your website by ensuring it appears at the top of search results when potential customers search for your products or services. SEO involves several techniques, such as on-page optimization (content and meta tags), off-page optimization (backlinks), and technical SEO (site speed, mobile-friendliness). Effective SEO helps increase your online visibility, attracting more targeted visitors to your site.',
-  },
-  {
-    question: 'Does SEO Truly Work?',
-    answer: 'Yes, SEO does work! When executed correctly, SEO drives significant organic traffic to your website, resulting in higher conversions and sustainable revenue growth. Unlike paid advertising which requires non-stop daily budget investment, SEO provides compounding long-term benefits by establishing solid search rankings and maintaining those positions over time. At THE BLANC, we use data-proven strategies to build a resilient, high-converting organic search presence.',
-  },
-  {
-    question: 'How Do I Measure the ROI from SEO Services?',
-    answer: 'Measuring the ROI of SEO involves tracking key metrics such as organic traffic volume, conversion rates, keyword rankings, and lead attribution. Using transparent analytics tools, we track the performance of high-intent keywords and monitor revenue generated from organic search traffic. THE BLANC provides clear monthly reports highlighting growth in these core metrics.',
-  },
-  {
-    question: 'What is the Meaning of Organic SEO?',
-    answer: 'Organic SEO refers to improving your website’s search engine rankings through natural, non-paid optimization techniques. It involves optimizing site architecture, producing high-value content, and building authoritative backlinks to align with search algorithms. The goal of organic SEO is to earn top placement based on relevance and authority, creating non-stop compounding traffic for your business.',
-  },
-];
-
-export default function SeoPage() {
+export default function GmbPage() {
   const [activeFaq, setActiveFaq] = useState(0);
 
   // Typewriter animation state for hero heading
-  const line1Text = "Be FOUND. Be CHOSEN.";
-  const line2Text = "Be REMEMBERED.";
+  const line1Text = "Be Seen Where Your";
+  const line2Text = "Customers Are Looking.";
   const [displayedLine1, setDisplayedLine1] = useState("");
   const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);
@@ -198,11 +62,11 @@ export default function SeoPage() {
   };
 
   const renderLine1Content = () => {
-    if (displayedLine1.length <= 10) {
+    if (displayedLine1.length <= 8) {
       return displayedLine1;
     }
-    const prefix = displayedLine1.slice(0, 10);
-    const highlight = displayedLine1.slice(10);
+    const prefix = displayedLine1.slice(0, 8);
+    const highlight = displayedLine1.slice(8);
     return (
       <>
         {prefix}
@@ -231,7 +95,7 @@ export default function SeoPage() {
               >
                 <div className="flair-hero-tag-pill">
                   <span className="seo-pill-dot" />
-                  <span>01. SEO STRATEGY & GROWTH</span>
+                  <span>02. GMB / Google Business Profile</span>
                 </div>
 
                 <h2 className="flair-hero-subheading typewriter-heading">
@@ -246,12 +110,12 @@ export default function SeoPage() {
                 </h2>
 
                 <p className="flair-hero-lead-text">
-                  Turn Google searches into real business opportunities with SEO strategies built around your audience, industry and goals.
+                  Turn your Google Business Profile into a powerful local growth channel that helps customers discover, trust and contact your business.
                 </p>
 
                 <div className="flair-hero-actions">
                   <a href="#contact" className="seo-primary-btn capsule-cta-btn">
-                    <span>Get Your SEO Strategy</span>
+                    <span>Improve My Local Presence</span>
                     <span className="seo-btn-arrow">→</span>
                   </a>
                 </div>
@@ -272,17 +136,17 @@ export default function SeoPage() {
             variants={fadeInUp}
           >
             <h2 className="flair-giant-power-title">
-              <span className="power-title-line">YOUR CUSTOMERS ARE SEARCHING.</span>
-              <span className="power-title-line">ARE THEY FINDING YOU?</span>
+              <span className="power-title-line">Your Business Deserves More Than Just a Pin on Google.</span>
+
             </h2>
 
             <div className="power-center-text-block">
               <p className="seo-body-lead centered">
-                Ranking on Google isn’t just about keywords. It’s about being visible when your potential customers are actively looking for what you offer.
+                A properly optimized Google Business Profile can help your business appear in local searches, Maps and discovery moments when customers are ready to take action.
               </p>
 
               <p className="power-body-desc centered">
-                At <strong>THE BLANC</strong> we combine technical SEO, content and search strategy to improve your visibility, attract relevant traffic and build sustainable organic growth.
+                We optimize your profile to improve visibility, credibility and local customer engagement.
               </p>
             </div>
           </motion.div>
@@ -321,14 +185,15 @@ export default function SeoPage() {
 
               <ul className="dual-card-list">
                 {[
-                  'Keyword Research & Strategy',
-                  'On-Page SEO',
-                  'Technical SEO',
-                  'Content Optimization',
-                  'Local SEO',
-                  'Off-Page SEO',
-                  'Competitor Analysis',
-                  'SEO Reporting & Performance Tracking',
+                  'Google Business Profile Optimization',
+                  'Business Information Optimization',
+                  'Category & Service Optimization',
+                  'Local Keyword Strategy',
+                  'Google Posts',
+                  'Photo & Visual Optimization',
+                  'Review Management Strategy',
+                  'Local Competitor Analysis',
+                  'Performance Monitoring',
                 ].map((item, idx) => (
                   <motion.li
                     key={idx}
@@ -377,7 +242,8 @@ export default function SeoPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
                   >
-                    Strategy Before Everything.
+                    From Local Visibility to Local Action.
+
                   </motion.p>
                   <motion.p
                     className="sub-desc"
@@ -386,7 +252,7 @@ export default function SeoPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
                   >
-                    We don’t chase rankings just for the sake of rankings. We focus on the searches that have the potential to bring the right audience to your business.
+                    We focus on making your business easier to find and easier to choose.
                   </motion.p>
                 </div>
               </div>
@@ -399,7 +265,7 @@ export default function SeoPage() {
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
               >
                 <a href="#contact" className="seo-primary-btn capsule-cta-btn orange-btn">
-                  <span>Let’s Grow Your Search Presence</span>
+                  <span> Get Your GMB Audit</span>
                   <span className="seo-btn-arrow">→</span>
                 </a>
               </motion.div>

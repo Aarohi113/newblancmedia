@@ -10,8 +10,8 @@ import FinalCta from './components/FinalCta';
 import Footer from './components/Footer';
 
 import SeoPage from './pages/SeoPage';
+import GmbPage from './pages/GmbPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
-import PpcAdsPage from './pages/PpcAdsPage';
 import SocialMediaPage from './pages/SocialMediaPage';
 
 function HomePage() {
@@ -36,8 +36,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/seo" element={<SeoPage />} />
+          <Route path="/gmb" element={<GmbPage />} />
+          <Route path="/google-business-profile" element={<GmbPage />} />
+          <Route path="/ppc-ads" element={<GmbPage />} />
           <Route path="/web-development" element={<WebDevelopmentPage />} />
-          <Route path="/ppc-ads" element={<PpcAdsPage />} />
           <Route path="/social-media-management" element={<SocialMediaPage />} />
         </Routes>
       </main>
