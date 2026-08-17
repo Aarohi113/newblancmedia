@@ -1621,7 +1621,7 @@ body {
    ========================================================================== */
 .products-showcase-section {
   position: relative;
-  padding: 6vh 1.2rem 8vh 1.2rem;
+  padding: 4vh 1.2rem 0 1.2rem;
   background: #E9E8E4;
   border-top: 1px solid rgba(17, 17, 18, 0.12);
   overflow: hidden;
@@ -1629,29 +1629,31 @@ body {
   isolation: isolate;
 }
 
-/* Background Concentric Rings Centered Behind Products Stage */
+/* Background Concentric Semi-Circle Rings (Faded cleanly at bottom without clip artifacts) */
 .bg-ring {
   position: absolute;
   left: 50%;
-  top: 52%;
-  transform: translate(-50%, -50%);
+  bottom: -28%;
+  transform: translateX(-50%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 88%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 88%);
 }
 
 .bg-ring.ring-small {
-  width: min(520px, 82vw);
-  height: min(520px, 82vw);
-  border: 14px solid rgba(17, 17, 18, 0.12);
-  filter: blur(8px);
+  width: min(740px, 95vw);
+  height: min(740px, 95vw);
+  border: 32px solid rgba(17, 17, 18, 0.16);
+  filter: blur(22px);
 }
 
 .bg-ring.ring-large {
-  width: min(820px, 125vw);
-  height: min(820px, 125vw);
-  border: 20px solid rgba(17, 17, 18, 0.08);
-  filter: blur(12px);
+  width: min(1220px, 155vw);
+  height: min(1220px, 155vw);
+  border: 44px solid rgba(17, 17, 18, 0.12);
+  filter: blur(34px);
 }
 
 .products-container {
@@ -1727,7 +1729,7 @@ body {
 .products-stage {
   position: relative;
   width: 100%;
-  min-height: 500px;
+  min-height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
