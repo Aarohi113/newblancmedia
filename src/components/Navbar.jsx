@@ -13,8 +13,8 @@ export default function Navbar() {
     >
       <nav className="capsule-navbar">
         {/* Brand Logo */}
-        <a href="#" className="nav-logo">
-          BLANC<span className="logo-dot">.</span>
+        <a href="#" className="nav-logo" aria-label="Blanc Media Home">
+          <img src="/blanc-logo-dark.webp" alt="Blanc Media" className="nav-logo-img" />
         </a>
 
         {/* Desktop Nav Links */}

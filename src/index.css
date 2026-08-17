@@ -500,19 +500,21 @@ body {
 }
 
 .nav-logo {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-  font-size: 1.3rem;
-  letter-spacing: -0.03em;
-  color: var(--paper);
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 
-.logo-dot {
-  color: var(--paper-dim);
-  margin-left: 1px;
+.nav-logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.04);
 }
 
 .nav-links {
@@ -2353,19 +2355,21 @@ body {
 }
 
 .footer-logo {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 900;
-  font-size: 1.8rem;
-  letter-spacing: -0.04em;
-  color: #FFFFFF;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
 }
 
-.footer-logo .logo-dot {
-  color: #575552;
-  margin-left: 1px;
+.footer-logo-img {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover .footer-logo-img {
+  transform: scale(1.04);
 }
 
 .footer-nav-menu {

@@ -24,8 +24,8 @@ export default function Footer() {
       >
         {/* Top Header Row: Logo on Left, Nav Links on Right */}
         <div className="footer-top-row">
-          <a href="#" className="footer-logo">
-            BLANC<span className="logo-dot">.</span>
+          <a href="#" className="footer-logo" aria-label="Blanc Media Home">
+            <img src="/blanc-logo-light.webp" alt="Blanc Media" className="footer-logo-img" />
           </a>
 
           <nav className="footer-nav-menu">
