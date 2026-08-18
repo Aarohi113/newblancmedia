@@ -23,6 +23,8 @@ export default function Services() {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860);
   const [maxShift, setMaxShift] = useState(580);
   const lastStepTimeRef = useRef(0);
+  const inFocusStartTimeRef = useRef(0);
+  const wasInFocusRef = useRef(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -65,16 +67,35 @@ export default function Services() {
 
     const handleWheel = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const inFocus = rect.top >= -220 && rect.top <= window.innerHeight * 0.45;
+      // Section is centered in viewport when top is near top edge
+      const isCentered = rect.top >= -140 && rect.top <= 140;
 
-      if (!inFocus) return;
+      if (!isCentered) {
+        wasInFocusRef.current = false;
+        return;
+      }
+
+      if (!wasInFocusRef.current) {
+        wasInFocusRef.current = true;
+        inFocusStartTimeRef.current = Date.now();
+      }
 
       const now = Date.now();
-      const COOLDOWN_MS = 750;
+      const COOLDOWN_MS = 950;
+      const INITIAL_DELAY_MS = 450; // ignore tail-end scroll momentum from arriving at section
 
       if (e.deltaY > 0) {
         // Scroll DOWN inside section
-        if (step < 3) {
+        if (step === 0) {
+          // Cards remain stacked until explicit NEXT scroll gesture after arriving at section
+          if (now - inFocusStartTimeRef.current > INITIAL_DELAY_MS) {
+            e.preventDefault();
+            if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+              lastStepTimeRef.current = now;
+              setStep(1);
+            }
+          }
+        } else if (step < 3) {
           e.preventDefault();
           if (now - lastStepTimeRef.current > COOLDOWN_MS) {
             lastStepTimeRef.current = now;
@@ -99,19 +120,39 @@ export default function Services() {
 
     const handleTouchMove = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const inFocus = rect.top >= -220 && rect.top <= window.innerHeight * 0.45;
-      if (!inFocus) return;
+      const isCentered = rect.top >= -140 && rect.top <= 140;
+
+      if (!isCentered) {
+        wasInFocusRef.current = false;
+        return;
+      }
+
+      if (!wasInFocusRef.current) {
+        wasInFocusRef.current = true;
+        inFocusStartTimeRef.current = Date.now();
+      }
 
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY;
       const now = Date.now();
-      const COOLDOWN_MS = 750;
+      const COOLDOWN_MS = 950;
+      const INITIAL_DELAY_MS = 450;
 
-      if (deltaY > 30 && step < 3) {
-        if (e.cancelable) e.preventDefault();
-        if (now - lastStepTimeRef.current > COOLDOWN_MS) {
-          lastStepTimeRef.current = now;
-          setStep((prev) => Math.min(prev + 1, 3));
+      if (deltaY > 30) {
+        if (step === 0) {
+          if (now - inFocusStartTimeRef.current > INITIAL_DELAY_MS) {
+            if (e.cancelable) e.preventDefault();
+            if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+              lastStepTimeRef.current = now;
+              setStep(1);
+            }
+          }
+        } else if (step < 3) {
+          if (e.cancelable) e.preventDefault();
+          if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+            lastStepTimeRef.current = now;
+            setStep((prev) => Math.min(prev + 1, 3));
+          }
         }
       } else if (deltaY < -30 && step > 0 && rect.top >= -120) {
         if (e.cancelable) e.preventDefault();
@@ -133,8 +174,8 @@ export default function Services() {
     };
   }, [step, isMobile]);
 
-  // Smooth animation spring transition
-  const springTransition = { duration: 0.85, ease: [0.16, 1, 0.3, 1] };
+  // Smooth animation spring transition - slower & silkier transition duration
+  const springTransition = { duration: 1.25, ease: [0.16, 1, 0.3, 1] };
 
   // Step 2 & 3: Heading shifts left to give room for horizontal scroll
   const getHeadingX = () => {
