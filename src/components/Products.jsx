@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import cardPerfImg from '../assets/card_perf.jpg';
@@ -11,6 +11,34 @@ const fadeInUp = {
     y: 0,
     transition: {
       duration: 1,
+      ease: [0.16, 1, 0.3, 1],
+      delay,
+    },
+  }),
+};
+
+const slideInLeft = {
+  hidden: { opacity: 0, x: -60, y: 0 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.85,
+      ease: [0.16, 1, 0.3, 1],
+      delay,
+    },
+  }),
+};
+
+const slideInRight = {
+  hidden: { opacity: 0, x: 60, y: 0 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: {
+      duration: 0.85,
       ease: [0.16, 1, 0.3, 1],
       delay,
     },
@@ -59,6 +87,13 @@ const sideCards = [
 export default function Products() {
   const sectionRef = useRef(null);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 860);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 860);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Track scroll progress of the section
   const { scrollYProgress } = useScroll({
@@ -99,6 +134,35 @@ export default function Products() {
 
         {/* Central Stage: Phone Image + 4 Floating Side Cards */}
         <div className="products-stage">
+          {/* Top 2 Cards for Mobile Layout (Slide from Left on Mobile) */}
+          <div className="cards-top-mobile">
+            {sideCards.slice(0, 2).map((card, idx) => (
+              <motion.div
+                key={card.id}
+                className={`product-side-card card-${card.position}`}
+                style={{ rotate: isMobile ? 0 : counterRotateAngle, cursor: 'pointer' }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={isMobile ? slideInLeft : fadeInUp}
+                custom={0.15 + idx * 0.12}
+                onClick={() => navigate(card.path)}
+              >
+                <div className="card-thumb-wrap">
+                  <img src={card.image} alt={card.title} className="card-thumb-img" />
+                </div>
+
+                <div className="card-body">
+                  <h4 className="card-title">{card.title}</h4>
+                  <p className="card-desc">{card.desc}</p>
+                  <Link to={card.path} className="card-link">
+                    <span>{card.link}</span>
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
           {/* Central Phone Mockup */}
           <motion.div
             className="phone-center-wrap"
@@ -122,21 +186,18 @@ export default function Products() {
           {/* Bottom Gradient Fade Overlay for Soft Image Dissolve */}
           <div className="products-bottom-fade" />
 
-          {/* Cards Orbiting Layer (0deg on 1st scroll, then rotates clockwise on subsequent scrolls) */}
-          <motion.div
-            className="cards-orbit-layer"
-            style={{ rotate: rotateAngle }}
-          >
-            {sideCards.map((card, idx) => (
+          {/* Bottom 2 Cards for Mobile Layout (Slide from Right on Mobile) */}
+          <div className="cards-bottom-mobile">
+            {sideCards.slice(2, 4).map((card, idx) => (
               <motion.div
                 key={card.id}
                 className={`product-side-card card-${card.position}`}
-                style={{ rotate: counterRotateAngle, cursor: 'pointer' }}
+                style={{ rotate: isMobile ? 0 : counterRotateAngle, cursor: 'pointer' }}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                variants={fadeInUp}
-                custom={0.2 + idx * 0.12}
+                variants={isMobile ? slideInRight : fadeInUp}
+                custom={0.15 + idx * 0.12}
                 onClick={() => navigate(card.path)}
               >
                 <div className="card-thumb-wrap">
@@ -146,13 +207,13 @@ export default function Products() {
                 <div className="card-body">
                   <h4 className="card-title">{card.title}</h4>
                   <p className="card-desc">{card.desc}</p>
-                  <Link to={card.path} className="card-link" onClick={(e) => e.stopPropagation()}>
+                  <Link to={card.path} className="card-link">
                     <span>{card.link}</span>
                   </Link>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

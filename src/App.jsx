@@ -14,6 +14,7 @@ import GmbPage from './pages/GmbPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import SocialMediaPage from './pages/SocialMediaPage';
 import PpcAdsPage from './pages/PpcAdsPage';
+import AboutPage from './pages/AboutPage';
 
 function HomePage() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/seo" element={<SeoPage />} />
           <Route path="/gmb" element={<GmbPage />} />
           <Route path="/google-business-profile" element={<GmbPage />} />

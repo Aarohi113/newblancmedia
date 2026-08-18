@@ -146,7 +146,7 @@ body {
   position: absolute;
   bottom: 0px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(0deg) !important;
   z-index: 10;
   width: clamp(380px, 60vw, 970px);
   pointer-events: none;
@@ -171,6 +171,7 @@ body {
   height: auto;
   display: block;
   object-fit: contain;
+  transform: rotate(0deg) !important;
   filter:
     drop-shadow(0 24px 38px rgba(17, 17, 18, 0.28)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
 }
@@ -1593,8 +1594,6 @@ body {
     aspect-ratio: auto !important;
     min-height: 380px !important;
     z-index: 1 !important;
-    background: #FFFFFF !important;
-    border: 1px solid rgba(17, 17, 18, 0.08) !important;
     border-radius: 20px !important;
     padding: 1.8rem 1.4rem !important;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06) !important;
@@ -3195,7 +3194,7 @@ body {
 
 .dual-card-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.6rem, 3.6vw, 5.2rem);
   font-weight: 900;
   text-transform: uppercase;
   color: #111112;
@@ -3703,5 +3702,752 @@ body {
   .flair-approach-cards-stack,
   .flair-types-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ABOUT PAGE SPECIFIC CARDS LAYOUT */
+.about-page-cards-section {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.about-page-cards-section .dual-card:not(.about-story-card) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.5rem 0 1rem 0;
+  border-radius: 0;
+}
+
+.about-page-cards-section .dual-card:not(.about-story-card):hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.about-page-cards-section .dual-card:not(.about-story-card) .dual-card-title,
+.about-page-cards-section .dual-card:not(.about-story-card) .dual-card-title.white-text {
+  color: #111112 !important;
+  font-size: clamp(2.4rem, 4vw, 3.2rem) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.03em !important;
+  padding-right: 0 !important;
+  margin-bottom: 1.2rem !important;
+  text-align: center !important;
+}
+
+.mission-paragraph,
+.vision-paragraph {
+  text-align: center;
+  color: #4b4b4e;
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  line-height: 1.65;
+  font-weight: 400;
+  margin: 0 auto 1.4rem auto;
+  max-width: 98%;
+}
+
+.about-page-cards-section .dark-black-card .highlight-lead {
+  color: #111112 !important;
+  font-weight: 700;
+}
+
+.about-page-cards-section .dark-black-card .sub-desc {
+  color: #444446 !important;
+}
+
+.about-page-cards-section .dual-card-list li {
+  color: #222224;
+}
+
+.about-page-cards-section .dual-card-badge {
+  position: static;
+  margin-bottom: 1rem;
+}
+
+.about-page-cards-section .dual-card-badge.orange {
+  background: #ff5500;
+  color: #ffffff;
+}
+
+.about-cards-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+.about-cards-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.about-cards-left-col .dual-card {
+  margin: 0;
+}
+
+.about-cards-right-col {
+  height: 100%;
+  max-height: 650px;
+  display: flex;
+  align-self: flex-start;
+}
+
+.about-image-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 610px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.about-side-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-image-card:hover .about-side-img {
+  transform: scale(1.03);
+}
+
+.about-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(17, 17, 18, 0.92) 0%,
+      rgba(17, 17, 18, 0.35) 50%,
+      rgba(17, 17, 18, 0.15) 100%);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.about-img-badge {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.45rem 1rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about-img-badge .dot-indicator.orange {
+  color: #ff5500;
+}
+
+.about-img-text h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.4rem 0;
+}
+
+.about-img-text p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .about-cards-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image-card {
+    min-height: 420px;
+  }
+}
+
+.about-orange-tagline {
+  color: #ff5500;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 800;
+  text-align: center;
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+  letter-spacing: -0.01em;
+}
+
+.about-power-text-block {
+  max-width: 1280px;
+}
+
+.about-story-section {
+  background: #f4f4f4 !important;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.about-story-section .about-cards-left-col {
+  width: 100%;
+  height: auto;
+  align-self: flex-start;
+}
+
+.about-story-section .about-image-card {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  border-radius: 24px !important;
+}
+
+.about-story-section .about-side-img {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  border-radius: 24px !important;
+}
+
+.about-story-section .about-cards-right-col {
+  height: 100% !important;
+  max-height: none !important;
+  display: flex !important;
+}
+
+.about-story-card {
+  background: linear-gradient(135deg, #e4e3df 0%, #cac9c4 100%) !important;
+  color: #111112 !important;
+  border-radius: 28px !important;
+  padding: 2.8rem 2.5rem !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
+  width: 100%;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  text-align: center !important;
+}
+
+.about-story-card .dual-card-title,
+.about-story-card .dual-card-title.white-text {
+  color: #111112 !important;
+  text-align: center !important;
+}
+
+.about-story-card .vision-paragraph {
+  color: #222224 !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE STYLES (max-width: 860px)
+   ========================================================================== */
+@media (max-width: 860px) {
+
+  /* ------------------------------------------------------------------------
+     1. HERO SECTION:
+     Heading Top -> 2x2 Grid of 4 Cards -> Mascot Image Below
+     ------------------------------------------------------------------------ */
+  .hero {
+    min-height: auto !important;
+    padding-top: 6rem !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+  }
+
+  .hero-heading-centered {
+    margin: 0 0 2rem 0 !important;
+    width: 100% !important;
+  }
+
+  .line-black {
+    font-size: clamp(2.6rem, 8.8vw, 3.8rem) !important;
+  }
+
+  .line-grey {
+    font-size: clamp(3.3rem, 11.5vw, 5.8rem) !important;
+  }
+
+  .hero-cards-mobile-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.6rem !important;
+    width: 100% !important;
+    max-width: 310px !important;
+    margin: 0 auto 1.8rem auto !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  .hero-glass-card {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    padding: 0.55rem 0.65rem !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  .hero-glass-card .glass-card-icon {
+    font-size: 0.95rem !important;
+  }
+
+  .hero-glass-card .glass-card-val {
+    font-size: 0.9rem !important;
+    font-weight: 800 !important;
+  }
+
+  .hero-glass-card .glass-card-lbl {
+    font-size: 0.65rem !important;
+  }
+
+  .hero-mascot-wrapper {
+    position: relative !important;
+    bottom: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 0 auto 0 auto !important;
+    max-width: 580px !important;
+    width: 100vw !important;
+    z-index: 4 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-self: flex-end !important;
+  }
+
+  .hero-mascot-img {
+    max-width: 540px !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     2. SERVICES SECTION:
+     Heading Top -> Layered Cards -> Scroll Next to Expand into Stack
+     ------------------------------------------------------------------------ */
+  .services-locked-container {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 1.5rem 1.2rem 1.8rem 1.2rem !important;
+    margin-top: 0 !important;
+  }
+
+  .services-grid-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 5px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .services-head {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 0 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
+
+  .services-head .eyebrow {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    margin-bottom: 0.3rem !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    display: inline-flex !important;
+    font-size: clamp(0.78rem, 1.2vw, 0.9rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: #111112 !important;
+  }
+
+  .services-head h2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 0.2rem 0 !important;
+    text-align: left !important;
+    font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif !important;
+    font-size: clamp(1.8rem, 6.2vw, 2.6rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
+    color: #111112 !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  .services-head h2 br {
+    display: inline !important;
+  }
+
+  .services-h2-line1,
+  .services-h2-line2 {
+    display: inline !important;
+    width: auto !important;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: normal !important;
+  }
+
+  .services-head p {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0.1rem 0 0 0 !important;
+    padding-bottom: 0 !important;
+    text-align: left !important;
+    font-family: 'Manrope', sans-serif !important;
+    font-size: clamp(0.92rem, 3.2vw, 1.05rem) !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+    color: #55534E !important;
+  }
+
+  .bento-stack-wrapper {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    margin: -190px 0 0 0 !important;
+    padding: 0 0 0.8rem 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .bento-stack-wrapper::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .bento-card,
+  .bento-card.card-a,
+  .bento-card.card-b,
+  .bento-card.card-c,
+  .bento-card.card-d {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    border-radius: 24px !important;
+    padding: 1.8rem 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.07) !important;
+  }
+
+  /* Desktop Themes Preserved on Mobile */
+  .bento-card.card-a {
+    background: linear-gradient(180deg, rgba(17, 17, 18, 0.15) 0%, rgba(17, 17, 18, 0.85) 100%), url('/Charac.webp') no-repeat center top / cover !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  }
+
+  .bento-card.card-b {
+    background: #121212 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+
+  .bento-card.card-c {
+    background: #F0F4F8 !important;
+    border: 1px solid #CBD5E1 !important;
+  }
+
+  .bento-card.card-d {
+    background: #111111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     3. PRODUCTS SECTION:
+     Heading Top -> 2 Cards -> Phone Image -> 2 Cards
+     ------------------------------------------------------------------------ */
+  .products-showcase-section {
+    padding: 4rem 1.2rem !important;
+  }
+
+  .products-stage {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.8rem !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .cards-top-mobile,
+  .cards-bottom-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+
+  .product-side-card {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    rotate: 0deg !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .phone-center-wrap {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    margin: 2rem auto !important;
+    max-width: 280px !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     4. FORM SECTION (CTA):
+     Square Image Top -> Form Below
+     ------------------------------------------------------------------------ */
+  .final-cta-section {
+    padding: 4rem 1.2rem !important;
+  }
+
+  .cta-split-wrapper {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    width: 100% !important;
+  }
+
+  .cta-portrait-card {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    max-height: 380px !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  .portrait-charac-img {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    border-radius: 20px !important;
+  }
+
+  .cta-form-card {
+    width: 100% !important;
+    padding: 2rem 1.5rem !important;
+    border-radius: 24px !important;
+  }
+
+  .form-row-2col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     5. FINAL CTA SECTION:
+     Responsive Typography & Vertical Pill Bar
+     ------------------------------------------------------------------------ */
+  .bottom-final-cta {
+    padding: 3.5rem 1.2rem !important;
+  }
+
+  .final-cta-title {
+    font-size: clamp(1.8rem, 6.5vw, 2.5rem) !important;
+  }
+
+  .final-cta-desc {
+    font-size: 0.95rem !important;
+    max-width: 100% !important;
+  }
+
+  .final-cta-action-pill-bar {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    border-radius: 24px !important;
+    padding: 1.2rem !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+
+  .final-cta-experts-wrapper {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .action-bar-divider {
+    display: none !important;
+  }
+
+  .talk-to-finance-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     6. FOOTER:
+     Mobile Responsive with Preserved Dark Card Theme & Reduced Bottom Gap
+     ------------------------------------------------------------------------ */
+  .site-footer {
+    padding: 1rem 0 0.4rem 0 !important;
+  }
+
+  .footer-card-container {
+    padding: 1.8rem 1.2rem 1.4rem 1.2rem !important;
+    border-radius: 24px !important;
+    margin: 0 0.6rem 0.4rem 0.6rem !important;
+    background: #111112 !important;
+    color: #ffffff !important;
+    gap: 1.8rem !important;
+  }
+
+  .footer-top-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.5rem !important;
+  }
+
+  .footer-nav-menu {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+  }
+
+  .footer-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.8rem !important;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     7. SERVICE DETAIL PAGES MOBILE HEIGHT & PADDING ADJUSTMENT:
+     ------------------------------------------------------------------------ */
+  .seo-page-wrapper {
+    padding-top: 6.2rem !important;
+  }
+
+  .flair-hero-section {
+    height: auto !important;
+    min-height: 72vh !important;
+    padding: 3.8rem 0 3.2rem 0 !important;
+  }
+
+  .flair-hero-header {
+    margin-top: 1.2rem !important;
+    margin-bottom: 1.8rem !important;
+  }
+
+  .flair-hero-tag-pill {
+    margin-bottom: 1.4rem !important;
+    padding: 0.5rem 1.3rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .flair-hero-subheading {
+    margin-bottom: 1.2rem !important;
+    line-height: 1.18 !important;
+    font-size: clamp(2.1rem, 7.2vw, 3rem) !important;
+  }
+
+  .flair-hero-lead-text {
+    margin-bottom: 1.8rem !important;
+    line-height: 1.6 !important;
+    font-size: clamp(0.98rem, 3.5vw, 1.08rem) !important;
+  }
+
+  .flair-hero-actions {
+    margin-top: 0.8rem !important;
+  }
+
+  .flair-scroll-anchor {
+    margin-top: 1.8rem !important;
+  }
+
+  .flair-power-section {
+    padding: 3.4rem 0 3.8rem 0 !important;
+  }
+
+  .flair-giant-power-title {
+    margin-bottom: 1.5rem !important;
+    font-size: clamp(2.1rem, 7vw, 3.2rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .power-center-text-block {
+    gap: 1.2rem !important;
+  }
+
+  .two-cards-section {
+    padding: 2.2rem 0 3.4rem 0 !important;
+  }
+
+  .two-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .dual-card {
+    padding: 2.2rem 1.6rem !important;
+    margin: 0 !important;
+    border-radius: 24px !important;
+  }
+
+  .dual-card-title {
+    font-size: clamp(1.6rem, 5.5vw, 2.6rem) !important;
+    margin-bottom: 0.8rem !important;
   }
 }

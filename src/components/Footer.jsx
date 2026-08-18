@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -30,9 +31,7 @@ export default function Footer() {
 
           <nav className="footer-nav-menu">
             <a href="#services">Services</a>
-            <a href="#products">Work</a>
-            <a href="#about">About</a>
-            <a href="#process">Process</a>
+            <Link to="/about">About</Link>
             <a href="#contact">Contacts</a>
           </nav>
         </div>
@@ -44,9 +43,9 @@ export default function Footer() {
             <p className="footer-bio-text">
               Data-driven marketing and growth systems powering next-gen brands. SEO, performance advertising & revenue scaling.
             </p>
-            <a href="#about" className="footer-more-about">
+            <Link to="/about" className="footer-more-about">
               <span className="dot-indicator">●</span> More about us
-            </a>
+            </Link>
 
             {/* Circular Social Icon Pills */}
             <div className="footer-social-pills">
@@ -81,8 +80,8 @@ export default function Footer() {
           <div className="footer-details-col">
             <div className="footer-detail-group">
               <h4 className="detail-title">Contact Us</h4>
-              <p className="detail-text"><a href="tel:+919876543210">+91 98765 43210</a></p>
-              <p className="detail-text"><a href="mailto:hello@newblancmedia.com">hello@newblancmedia.com</a></p>
+              <p className="detail-text"><a href="tel:+919044618328">+91 9044618328</a></p>
+              <p className="detail-text"><a href="mailto:contact@theblancmedia.com">contact@theblancmedia.com</a></p>
             </div>
 
             <div className="footer-detail-group">

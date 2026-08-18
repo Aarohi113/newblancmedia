@@ -177,14 +177,16 @@ export default function Services() {
   // Smooth animation spring transition - slower & silkier transition duration
   const springTransition = { duration: 1.25, ease: [0.16, 1, 0.3, 1] };
 
-  // Step 2 & 3: Heading shifts left to give room for horizontal scroll
+  // Step 2 & 3: Heading shifts left to give room for horizontal scroll (desktop only)
   const getHeadingX = () => {
+    if (isMobile) return '0%';
     if (step >= 2) return '-65%';
     return '0%';
   };
 
-  // Step 2 & 3: Cards wrapper shifts left by maxShift to reveal last card
+  // Step 2 & 3: Cards wrapper shifts left by maxShift to reveal last card (desktop only)
   const getCardsWrapperX = () => {
+    if (isMobile) return '0px';
     if (step >= 2) return `-${maxShift}px`;
     return '0px';
   };
@@ -192,80 +194,18 @@ export default function Services() {
   // Step 0: Layered overlapping deck (index * 65)
   // Step 1, 2, 3: Expanded out horizontally into row (index * 310)
   const getCardX = (index) => {
+    if (isMobile) return 0;
     if (step === 0) {
       return index * 65;
     }
     return index * 310;
   };
 
-  if (isMobile) {
-    return (
-      <section className="services services-mobile" id="services">
-        <div className="services-grid-layout">
-          <motion.div
-            className="services-head"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={fadeInUp}
-          >
-            <span className="eyebrow eyebrow--static">
-              <span>What we do</span>
-            </span>
-            <h2>Marketing that moves<br />your business forward</h2>
-            <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
-          </motion.div>
-
-          <div className="bento-grid-mobile">
-            {/* Card 1 */}
-            <div className="bento-card card-a">
-              <div className="card-bottom-content">
-                <span className="big-stat-num">200%</span>
-                <h3 className="big-stat-heading">More leads generated</h3>
-              </div>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bento-card card-b">
-              <div className="card-stat-header roas-header">
-                <span className="roas-num">-35%</span>
-                <span className="roas-label">Lower Cost Per Lead</span>
-              </div>
-              <p className="card-static-desc">
-                Smarter campaigns designed to reduce wasted ad spend and improve conversions.
-              </p>
-              <div className="card-bottom-heading">Make every ad rupee count</div>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bento-card card-c">
-              <div className="card-stat-header roas-header">
-                <div className="stat-num-row">
-                  <span className="up-arrow">↑</span>
-                  <span className="stat-val">120</span>
-                </div>
-                <span className="roas-label">More Traffic</span>
-              </div>
-              <p className="card-static-desc">Turn website visitors into enquiries with content.</p>
-              <div className="card-bottom-heading">Convert More Leads</div>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bento-card card-d">
-              <div className="card-stat-header roas-header">
-                <span className="roas-num">3X</span>
-                <span className="roas-label">Better ROAS</span>
-              </div>
-              <p className="card-static-desc">
-                Data-driven advertising strategies focused on turning clicks into real revenue.
-              </p>
-              <div className="card-bottom-heading">Turn ad spend into growth</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // Mobile Y translation (0 on mobile for clean horizontal slider)
+  const getCardY = (index) => {
+    if (isMobile) return 0;
+    return 0;
+  };
 
   return (
     <section className="services services-locked-container" id="services" ref={sectionRef}>
@@ -279,7 +219,11 @@ export default function Services() {
           <span className="eyebrow eyebrow--static">
             <span>What we do</span>
           </span>
-          <h2>Marketing that moves<br />your business forward</h2>
+          <h2>
+            <span className="services-h2-line1">Marketing that moves</span>
+            <br />
+            <span className="services-h2-line2">your business forward</span>
+          </h2>
           <p>Strategy, creative and measurement — built as one system, not three separate vendors.</p>
         </motion.div>
 
@@ -293,7 +237,7 @@ export default function Services() {
           {/* Card 1 */}
           <motion.div
             className="bento-card card-a"
-            animate={{ x: getCardX(0) }}
+            animate={{ x: getCardX(0), y: getCardY(0) }}
             transition={springTransition}
             style={{ zIndex: 4 }}
           >
@@ -306,7 +250,7 @@ export default function Services() {
           {/* Card 2 */}
           <motion.div
             className="bento-card card-b"
-            animate={{ x: getCardX(1) }}
+            animate={{ x: getCardX(1), y: getCardY(1) }}
             transition={springTransition}
             style={{ zIndex: 3 }}
           >
@@ -346,7 +290,7 @@ export default function Services() {
           {/* Card 3 */}
           <motion.div
             className="bento-card card-c"
-            animate={{ x: getCardX(2) }}
+            animate={{ x: getCardX(2), y: getCardY(2) }}
             transition={springTransition}
             style={{ zIndex: 2 }}
           >
@@ -389,7 +333,7 @@ export default function Services() {
           {/* Card 4 */}
           <motion.div
             className="bento-card card-d"
-            animate={{ x: getCardX(3) }}
+            animate={{ x: getCardX(3), y: getCardY(3) }}
             transition={springTransition}
             style={{ zIndex: 1 }}
           >

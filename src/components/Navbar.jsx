@@ -163,9 +163,7 @@ export default function Navbar() {
             </AnimatePresence>
           </li>
 
-          <li><a href={getHref("#products")}>Work</a></li>
-          <li><a href={getHref("#about")}>About</a></li>
-          <li><a href={getHref("#process")}>Process</a></li>
+          <li><Link to="/about">About</Link></li>
         </ul>
 
         {/* Action Button */}
@@ -257,9 +255,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <a href={getHref("#products")} onClick={() => setMobileMenuOpen(false)}>Work</a>
-            <a href={getHref("#about")} onClick={() => setMobileMenuOpen(false)}>About</a>
-            <a href={getHref("#process")} onClick={() => setMobileMenuOpen(false)}>Process</a>
+            <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
             <a href={getHref("#contact")} className="mobile-menu-cta" onClick={() => setMobileMenuOpen(false)}>
               Get in Touch →
             </a>
