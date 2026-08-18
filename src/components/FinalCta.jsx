@@ -14,7 +14,11 @@ const fadeInUp = {
   }),
 };
 
-export default function FinalCta() {
+export default function FinalCta({
+  title = <>Speak to our financing<br />experts</>,
+  desc = "Our team is here to answer your questions, review your business needs, and guide you toward the right funding option—so you can move forward with confidence",
+  buttonText = "Talk to finance"
+}) {
   return (
     <section className="bottom-final-cta">
       <motion.div
@@ -26,11 +30,11 @@ export default function FinalCta() {
         custom={0.1}
       >
         <h2 className="final-cta-title">
-          Speak to our financing<br />experts
+          {title}
         </h2>
 
         <p className="final-cta-desc">
-          Our team is here to answer your questions, review your business needs, and guide you toward the right funding option—so you can move forward with confidence
+          {desc}
         </p>
 
         <div className="final-cta-action-pill-bar">
@@ -61,7 +65,7 @@ export default function FinalCta() {
           <span className="action-bar-divider" />
 
           <a href="#contact" className="talk-to-finance-btn">
-            <span>Talk to finance</span>
+            <span>{buttonText}</span>
             <span className="talk-arrow">→</span>
           </a>
         </div>

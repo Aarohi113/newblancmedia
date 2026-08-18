@@ -13,6 +13,7 @@ import SeoPage from './pages/SeoPage';
 import GmbPage from './pages/GmbPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import SocialMediaPage from './pages/SocialMediaPage';
+import PpcAdsPage from './pages/PpcAdsPage';
 
 function HomePage() {
   return (
@@ -38,9 +39,10 @@ function App() {
           <Route path="/seo" element={<SeoPage />} />
           <Route path="/gmb" element={<GmbPage />} />
           <Route path="/google-business-profile" element={<GmbPage />} />
-          <Route path="/ppc-ads" element={<GmbPage />} />
+          <Route path="/ppc-ads" element={<PpcAdsPage />} />
           <Route path="/web-development" element={<WebDevelopmentPage />} />
           <Route path="/social-media-management" element={<SocialMediaPage />} />
+          <Route path="/social-media" element={<SocialMediaPage />} />
         </Routes>
       </main>
     </Router>
