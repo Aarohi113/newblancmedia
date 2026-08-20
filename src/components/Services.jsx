@@ -58,8 +58,6 @@ export default function Services() {
   }, [isMobile]);
 
   useEffect(() => {
-    if (isMobile) return;
-
     const sectionEl = sectionRef.current;
     if (!sectionEl) return;
 
@@ -67,10 +65,12 @@ export default function Services() {
 
     const handleWheel = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      // Section is centered in viewport when top is near top edge
-      const isCentered = rect.top >= -140 && rect.top <= 140;
+      const windowHeight = window.innerHeight;
+      const isInView = isMobile
+        ? rect.top <= windowHeight * 0.55 && rect.bottom >= windowHeight * 0.35
+        : rect.top >= -140 && rect.top <= 140;
 
-      if (!isCentered) {
+      if (!isInView) {
         wasInFocusRef.current = false;
         return;
       }
@@ -81,35 +81,25 @@ export default function Services() {
       }
 
       const now = Date.now();
-      const COOLDOWN_MS = 950;
-      const INITIAL_DELAY_MS = 450; // ignore tail-end scroll momentum from arriving at section
+      const COOLDOWN_MS = isMobile ? 850 : 950;
+      const INITIAL_DELAY_MS = isMobile ? 500 : 450;
 
-      if (e.deltaY > 0) {
-        // Scroll DOWN inside section
-        if (step === 0) {
-          // Cards remain stacked until explicit NEXT scroll gesture after arriving at section
-          if (now - inFocusStartTimeRef.current > INITIAL_DELAY_MS) {
-            e.preventDefault();
-            if (now - lastStepTimeRef.current > COOLDOWN_MS) {
-              lastStepTimeRef.current = now;
-              setStep(1);
-            }
-          }
-        } else if (step < 3) {
-          e.preventDefault();
-          if (now - lastStepTimeRef.current > COOLDOWN_MS) {
-            lastStepTimeRef.current = now;
-            setStep((prev) => Math.min(prev + 1, 3));
-          }
+      if (e.deltaY > 0 && step < 3) {
+        e.preventDefault(); // Lock page scroll while cycling cards
+
+        if (step === 0 && now - inFocusStartTimeRef.current < INITIAL_DELAY_MS) {
+          return;
         }
-      } else if (e.deltaY < 0) {
-        // Scroll UP inside section
-        if (step > 0 && rect.top >= -120) {
-          e.preventDefault();
-          if (now - lastStepTimeRef.current > COOLDOWN_MS) {
-            lastStepTimeRef.current = now;
-            setStep((prev) => Math.max(prev - 1, 0));
-          }
+
+        if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+          lastStepTimeRef.current = now;
+          setStep((prev) => Math.min(prev + 1, 3));
+        }
+      } else if (e.deltaY < 0 && step > 0 && rect.top >= -120) {
+        e.preventDefault(); // Lock page scroll while reversing back up
+        if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+          lastStepTimeRef.current = now;
+          setStep((prev) => Math.max(prev - 1, 0));
         }
       }
     };
@@ -120,9 +110,12 @@ export default function Services() {
 
     const handleTouchMove = (e) => {
       const rect = sectionEl.getBoundingClientRect();
-      const isCentered = rect.top >= -140 && rect.top <= 140;
+      const windowHeight = window.innerHeight;
+      const isInView = isMobile
+        ? rect.top <= windowHeight * 0.55 && rect.bottom >= windowHeight * 0.35
+        : rect.top >= -140 && rect.top <= 140;
 
-      if (!isCentered) {
+      if (!isInView) {
         wasInFocusRef.current = false;
         return;
       }
@@ -135,27 +128,22 @@ export default function Services() {
       const touchEndY = e.touches[0].clientY;
       const deltaY = touchStartY - touchEndY;
       const now = Date.now();
-      const COOLDOWN_MS = 950;
-      const INITIAL_DELAY_MS = 450;
+      const COOLDOWN_MS = isMobile ? 800 : 950;
+      const INITIAL_DELAY_MS = isMobile ? 500 : 450;
 
-      if (deltaY > 30) {
-        if (step === 0) {
-          if (now - inFocusStartTimeRef.current > INITIAL_DELAY_MS) {
-            if (e.cancelable) e.preventDefault();
-            if (now - lastStepTimeRef.current > COOLDOWN_MS) {
-              lastStepTimeRef.current = now;
-              setStep(1);
-            }
-          }
-        } else if (step < 3) {
-          if (e.cancelable) e.preventDefault();
-          if (now - lastStepTimeRef.current > COOLDOWN_MS) {
-            lastStepTimeRef.current = now;
-            setStep((prev) => Math.min(prev + 1, 3));
-          }
+      if (deltaY > 15 && step < 3) {
+        if (e.cancelable) e.preventDefault(); // Lock page scroll until all 4 cards cover each other
+
+        if (step === 0 && now - inFocusStartTimeRef.current < INITIAL_DELAY_MS) {
+          return;
         }
-      } else if (deltaY < -30 && step > 0 && rect.top >= -120) {
-        if (e.cancelable) e.preventDefault();
+
+        if (now - lastStepTimeRef.current > COOLDOWN_MS) {
+          lastStepTimeRef.current = now;
+          setStep((prev) => Math.min(prev + 1, 3));
+        }
+      } else if (deltaY < -15 && step > 0 && rect.top >= -120) {
+        if (e.cancelable) e.preventDefault(); // Lock page scroll when reversing up back to card 0
         if (now - lastStepTimeRef.current > COOLDOWN_MS) {
           lastStepTimeRef.current = now;
           setStep((prev) => Math.max(prev - 1, 0));
@@ -175,7 +163,9 @@ export default function Services() {
   }, [step, isMobile]);
 
   // Smooth animation spring transition - slower & silkier transition duration
-  const springTransition = { duration: 1.25, ease: [0.16, 1, 0.3, 1] };
+  const springTransition = isMobile
+    ? { duration: 0.75, ease: [0.22, 1, 0.36, 1] }
+    : { duration: 1.25, ease: [0.16, 1, 0.3, 1] };
 
   // Step 2 & 3: Heading shifts left to give room for horizontal scroll (desktop only)
   const getHeadingX = () => {
@@ -201,10 +191,27 @@ export default function Services() {
     return index * 310;
   };
 
-  // Mobile Y translation (0 on mobile for clean horizontal slider)
+  // Mobile Y translation: Next card slides from bottom on top of previous card
   const getCardY = (index) => {
-    if (isMobile) return 0;
-    return 0;
+    if (!isMobile) return 0;
+    if (index <= step) {
+      return 0;
+    }
+    return 460; // start offscreen below container
+  };
+
+  const getCardOpacity = (index) => {
+    if (!isMobile) return 1;
+    if (index === 0) return 1;
+    if (index <= step) return 1;
+    return 0; // Hide unrevealed cards at bottom
+  };
+
+  const getCardZIndex = (index) => {
+    if (!isMobile) return 4 - index;
+    if (index === 0) return 10;
+    if (index <= step) return (index + 1) * 10;
+    return 1; // Unrevealed cards stay underneath Card 0 (zIndex 10)
   };
 
   return (
@@ -231,15 +238,18 @@ export default function Services() {
         <motion.div
           ref={wrapperRef}
           className="bento-stack-wrapper"
-          animate={{ x: getCardsWrapperX() }}
+          animate={{
+            x: getCardsWrapperX(),
+            ...(isMobile ? { height: '390px' } : {})
+          }}
           transition={springTransition}
         >
           {/* Card 1 */}
           <motion.div
             className="bento-card card-a"
-            animate={{ x: getCardX(0), y: getCardY(0) }}
+            animate={{ x: getCardX(0), y: getCardY(0), opacity: getCardOpacity(0) }}
             transition={springTransition}
-            style={{ zIndex: 4 }}
+            style={{ zIndex: getCardZIndex(0) }}
           >
             <div className="card-bottom-content">
               <span className="big-stat-num">200%</span>
@@ -250,9 +260,9 @@ export default function Services() {
           {/* Card 2 */}
           <motion.div
             className="bento-card card-b"
-            animate={{ x: getCardX(1), y: getCardY(1) }}
+            animate={{ x: getCardX(1), y: getCardY(1), opacity: getCardOpacity(1) }}
             transition={springTransition}
-            style={{ zIndex: 3 }}
+            style={{ zIndex: getCardZIndex(1) }}
           >
             <div className="card-stat-header roas-header">
               <span className="roas-num">-35%</span>
@@ -290,9 +300,9 @@ export default function Services() {
           {/* Card 3 */}
           <motion.div
             className="bento-card card-c"
-            animate={{ x: getCardX(2), y: getCardY(2) }}
+            animate={{ x: getCardX(2), y: getCardY(2), opacity: getCardOpacity(2) }}
             transition={springTransition}
-            style={{ zIndex: 2 }}
+            style={{ zIndex: getCardZIndex(2) }}
           >
             <div className="card-stat-header roas-header">
               <div className="stat-num-row">
@@ -333,9 +343,9 @@ export default function Services() {
           {/* Card 4 */}
           <motion.div
             className="bento-card card-d"
-            animate={{ x: getCardX(3), y: getCardY(3) }}
+            animate={{ x: getCardX(3), y: getCardY(3), opacity: getCardOpacity(3) }}
             transition={springTransition}
-            style={{ zIndex: 1 }}
+            style={{ zIndex: getCardZIndex(3) }}
           >
             <div className="card-stat-header roas-header">
               <span className="roas-num">3X</span>
