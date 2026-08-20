@@ -210,7 +210,7 @@ export default function AboutPage() {
             <div className="about-cards-left-col">
               {/* CARD 1: LIGHT GREY CARD - OUR MISSION */}
               <motion.div
-                className="dual-card light-grey-card"
+                className="dual-card light-grey-card about-mission-card"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
@@ -243,7 +243,7 @@ export default function AboutPage() {
 
               {/* CARD 2: DARK BLACK CARD - OUR VISION */}
               <motion.div
-                className="dual-card dark-black-card"
+                className="dual-card dark-black-card about-vision-card"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
@@ -362,11 +362,18 @@ export default function AboutPage() {
               variants={fadeInUp}
               custom={0.25}
             >
-              <div className="dual-card light-grey-card about-story-card">
+              <div className="dual-card dark-black-card about-story-card">
                 <div className="dark-card-inner">
+                  {/* Top Left Logo */}
+                  <img
+                    src="/blanc-logo-light.webp"
+                    alt="Blanc Media"
+                    className="about-card-logo"
+                  />
+
                   <motion.h3
-                    className="dual-card-title"
-                    style={{ textAlign: 'center' }}
+                    className="dual-card-title white-text"
+                    style={{ textAlign: 'left' }}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
@@ -377,8 +384,8 @@ export default function AboutPage() {
                   </motion.h3>
 
                   <motion.p
-                    className="vision-paragraph"
-                    style={{ textAlign: 'center' }}
+                    className="vision-paragraph white-text"
+                    style={{ textAlign: 'left' }}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
@@ -387,20 +394,9 @@ export default function AboutPage() {
                   >
                     At Blanc Media, we blend strategic depth with creative expression. We start by listening closely to your goals, analyzing your market opportunities, and defining a clear path forward. Every campaign, design, and digital asset is engineered to spark connection and drive measurable outcomes for your brand.
                   </motion.p>
-                  <motion.p
-                    className="vision-paragraph"
-                    style={{ textAlign: 'center' }}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={slideInLeft}
-                    custom={0.25}
-                  >
-                    That’s where we come in. We are not just a marketing brand. We are the bridge between you and your dream brand. From an idea scribbled on a piece of paper to a brand that stands confidently in the real world, we believe in being a part of the journey not just the execution. Your vision inspires us. Your ambition drives us because marketing is more than just selling. It’s about telling a story, creating a feeling, and building a connection.
-                  </motion.p>
                   <motion.h3
                     className="about-orange-tagline"
-                    style={{ marginTop: '1.4rem', textAlign: 'center' }}
+                    style={{ marginTop: '1.4rem', textAlign: 'left', color: '#FF5A1F' }}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}

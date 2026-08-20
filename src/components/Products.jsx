@@ -102,11 +102,11 @@ export default function Products() {
   });
 
   // 1st scroll arrival (0.0 to 0.25): 0deg (Cards stay in original default positions)
-  // Subsequent scrolls (0.25 to 0.75): Revolves clockwise subtly up to 11deg so right cards stay safely inside section bounds
-  const rotateAngle = useTransform(scrollYProgress, [0, 0.25, 0.75], [0, 0, 11]);
+  // Subsequent scrolls (0.25 to 0.85): Orbit layer rotates clockwise all together up to 15deg
+  const rotateAngle = useTransform(scrollYProgress, [0, 0.25, 0.85], [0, 0, 15]);
 
-  // Counter-rotate each card box so it stays 100% upright & level
-  const counterRotateAngle = useTransform(scrollYProgress, [0, 0.25, 0.75], [0, 0, -11]);
+  // Counter-rotate each individual card box so cards stay 100% level & upright without tilting
+  const counterRotateAngle = useTransform(scrollYProgress, [0, 0.25, 0.85], [0, 0, -15]);
 
   return (
     <section className="products-showcase-section" ref={sectionRef} id="products">
@@ -134,34 +134,98 @@ export default function Products() {
 
         {/* Central Stage: Phone Image + 4 Floating Side Cards */}
         <div className="products-stage">
-          {/* Top 2 Cards for Mobile Layout (Slide from Left on Mobile) */}
-          <div className="cards-top-mobile">
-            {sideCards.slice(0, 2).map((card, idx) => (
-              <motion.div
-                key={card.id}
-                className={`product-side-card card-${card.position}`}
-                style={{ rotate: isMobile ? 0 : counterRotateAngle, cursor: 'pointer' }}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={isMobile ? slideInLeft : fadeInUp}
-                custom={0.15 + idx * 0.12}
-                onClick={() => navigate(card.path)}
-              >
-                <div className="card-thumb-wrap">
-                  <img src={card.image} alt={card.title} className="card-thumb-img" />
-                </div>
+          {/* Desktop Orbit Layer: All 4 cards move together in a clockwise circular motion */}
+          {!isMobile ? (
+            <motion.div
+              className="cards-orbit-layer"
+              style={{ rotate: rotateAngle }}
+            >
+              {sideCards.map((card, idx) => (
+                <motion.div
+                  key={card.id}
+                  className={`product-side-card card-${card.position}`}
+                  style={{ rotate: counterRotateAngle, cursor: 'pointer' }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  variants={fadeInUp}
+                  custom={0.15 + idx * 0.12}
+                  onClick={() => navigate(card.path)}
+                >
+                  <div className="card-thumb-wrap">
+                    <img src={card.image} alt={card.title} className="card-thumb-img" />
+                  </div>
 
-                <div className="card-body">
-                  <h4 className="card-title">{card.title}</h4>
-                  <p className="card-desc">{card.desc}</p>
-                  <Link to={card.path} className="card-link">
-                    <span>{card.link}</span>
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="card-body">
+                    <h4 className="card-title">{card.title}</h4>
+                    <p className="card-desc">{card.desc}</p>
+                    <Link to={card.path} className="card-link">
+                      <span>{card.link}</span>
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            /* Mobile Cards Layout */
+            <>
+              <div className="cards-top-mobile">
+                {sideCards.slice(0, 2).map((card, idx) => (
+                  <motion.div
+                    key={card.id}
+                    className={`product-side-card card-${card.position}`}
+                    style={{ cursor: 'pointer' }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={slideInLeft}
+                    custom={0.15 + idx * 0.12}
+                    onClick={() => navigate(card.path)}
+                  >
+                    <div className="card-thumb-wrap">
+                      <img src={card.image} alt={card.title} className="card-thumb-img" />
+                    </div>
+
+                    <div className="card-body">
+                      <h4 className="card-title">{card.title}</h4>
+                      <p className="card-desc">{card.desc}</p>
+                      <Link to={card.path} className="card-link">
+                        <span>{card.link}</span>
+                      </Link>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="cards-bottom-mobile">
+                {sideCards.slice(2, 4).map((card, idx) => (
+                  <motion.div
+                    key={card.id}
+                    className={`product-side-card card-${card.position}`}
+                    style={{ cursor: 'pointer' }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={slideInRight}
+                    custom={0.15 + idx * 0.12}
+                    onClick={() => navigate(card.path)}
+                  >
+                    <div className="card-thumb-wrap">
+                      <img src={card.image} alt={card.title} className="card-thumb-img" />
+                    </div>
+
+                    <div className="card-body">
+                      <h4 className="card-title">{card.title}</h4>
+                      <p className="card-desc">{card.desc}</p>
+                      <Link to={card.path} className="card-link">
+                        <span>{card.link}</span>
+                      </Link>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Central Phone Mockup */}
           <motion.div
@@ -185,35 +249,6 @@ export default function Products() {
 
           {/* Bottom Gradient Fade Overlay for Soft Image Dissolve */}
           <div className="products-bottom-fade" />
-
-          {/* Bottom 2 Cards for Mobile Layout (Slide from Right on Mobile) */}
-          <div className="cards-bottom-mobile">
-            {sideCards.slice(2, 4).map((card, idx) => (
-              <motion.div
-                key={card.id}
-                className={`product-side-card card-${card.position}`}
-                style={{ rotate: isMobile ? 0 : counterRotateAngle, cursor: 'pointer' }}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={isMobile ? slideInRight : fadeInUp}
-                custom={0.15 + idx * 0.12}
-                onClick={() => navigate(card.path)}
-              >
-                <div className="card-thumb-wrap">
-                  <img src={card.image} alt={card.title} className="card-thumb-img" />
-                </div>
-
-                <div className="card-body">
-                  <h4 className="card-title">{card.title}</h4>
-                  <p className="card-desc">{card.desc}</p>
-                  <Link to={card.path} className="card-link">
-                    <span>{card.link}</span>
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

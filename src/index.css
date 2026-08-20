@@ -3925,30 +3925,39 @@ body {
 }
 
 .about-story-card {
-  background: linear-gradient(135deg, #e4e3df 0%, #cac9c4 100%) !important;
-  color: #111112 !important;
+  background: #111112 !important;
+  color: #FFFFFF !important;
   border-radius: 28px !important;
-  padding: 2.8rem 2.5rem !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08) !important;
+  padding: 10% !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25) !important;
   width: 100%;
   height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  text-align: center !important;
+  text-align: left !important;
+}
+
+.about-card-logo {
+  max-width: 140px;
+  height: auto;
+  margin-top: -1.5rem;
+  margin-left: -0.8rem;
+  margin-bottom: 15.5rem;
+  display: block;
 }
 
 .about-story-card .dual-card-title,
 .about-story-card .dual-card-title.white-text {
-  color: #111112 !important;
-  text-align: center !important;
+  color: #FFFFFF !important;
+  text-align: left !important;
 }
 
 .about-story-card .vision-paragraph {
-  color: #222224 !important;
+  color: #E5E7EB !important;
   font-weight: 500 !important;
-  text-align: center !important;
+  text-align: left !important;
 }
 
 /* ==========================================================================
@@ -4443,5 +4452,67 @@ body {
   .dual-card-title {
     font-size: clamp(1.6rem, 5.5vw, 2.6rem) !important;
     margin-bottom: 0.8rem !important;
+  }
+
+  /* About Page Cards Mobile Styling */
+  .about-cards-left-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+
+  .dual-card.light-grey-card.about-mission-card,
+  .dual-card.about-mission-card,
+  .about-mission-card {
+    background: #111112 !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .dual-card.light-grey-card.about-mission-card .dual-card-title,
+  .dual-card.about-mission-card .dual-card-title,
+  .about-mission-card .dual-card-title {
+    color: #FF5A1F !important;
+  }
+
+  .dual-card.light-grey-card.about-mission-card .mission-paragraph,
+  .dual-card.about-mission-card .mission-paragraph,
+  .about-mission-card .mission-paragraph {
+    color: #FFFFFF !important;
+  }
+
+  .dual-card.dark-black-card.about-vision-card,
+  .dual-card.about-vision-card,
+  .about-vision-card {
+    background: linear-gradient(135deg, #FF5A1F 0%, #E04810 100%) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 16px 36px rgba(255, 90, 31, 0.25) !important;
+  }
+
+  .dual-card.dark-black-card.about-vision-card .dual-card-title,
+  .dual-card.dark-black-card.about-vision-card .dual-card-title.white-text,
+  .dual-card.about-vision-card .dual-card-title,
+  .about-vision-card .dual-card-title {
+    color: #111112 !important;
+  }
+
+  .dual-card.dark-black-card.about-vision-card .vision-paragraph,
+  .dual-card.about-vision-card .vision-paragraph,
+  .about-vision-card .vision-paragraph {
+    color: #FFFFFF !important;
+  }
+
+  .dual-card.dark-black-card.about-vision-card .about-orange-tagline,
+  .dual-card.about-vision-card .about-orange-tagline,
+  .about-vision-card .about-orange-tagline {
+    color: #FFFFFF !important;
+  }
+
+  .about-card-logo {
+    max-width: 80px !important;
+    margin-top: -0.8rem !important;
+    margin-bottom: 6.6rem !important;
   }
 }
