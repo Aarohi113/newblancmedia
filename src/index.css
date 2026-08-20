@@ -4054,8 +4054,9 @@ body {
   }
 
   /* ------------------------------------------------------------------------
-     2. SERVICES SECTION:
-     Heading Top -> Layered Cards -> Scroll Next to Expand into Stack
+     2. SERVICES SECTION: Sticky Stack Scroll Effect
+     Each card sticks at top:90px, stacks with z-index + scale depth illusion
+     CRITICAL: overflow must be visible on all parents for sticky to work
      ------------------------------------------------------------------------ */
   .services,
   .services-locked-container {
@@ -4064,6 +4065,7 @@ body {
     padding: 0 1.2rem 1.8rem 1.2rem !important;
     margin-top: -4.5rem !important;
     border-top: none !important;
+    overflow: visible !important; /* Required: sticky needs visible overflow */
   }
 
   .services-grid-layout {
@@ -4074,6 +4076,7 @@ body {
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    overflow: visible !important; /* Required for sticky cards inside */
   }
 
   .services-head {
@@ -4146,36 +4149,41 @@ body {
     color: #55534E !important;
   }
 
+  /* Sticky Stack Wrapper: tall column, overflow visible for sticky to work */
   .bento-stack-wrapper {
     position: relative !important;
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
     width: 100% !important;
-    max-width: 340px !important;
-    height: 390px !important;
-    margin: -3rem auto 0 auto !important;
-    padding: 0 !important;
-    overflow: hidden !important;
+    max-width: 360px !important;
+    height: auto !important;
+    margin: 1rem auto 0 auto !important;
+    padding: 0 0 80px 0 !important; /* bottom padding so last card can scroll fully */
+    overflow: visible !important; /* CRITICAL: sticky needs visible overflow */
+    transform: none !important;
   }
 
   .bento-stack-wrapper::-webkit-scrollbar {
     display: none !important;
   }
 
+  /* Mobile Sticky Stack Cards */
   .bento-card,
   .bento-card.card-a,
   .bento-card.card-b,
   .bento-card.card-c,
   .bento-card.card-d {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: sticky !important;
+    top: 90px !important;
+    left: auto !important;
     right: auto !important;
     bottom: auto !important;
-    margin: 0 !important;
+    margin: 0 0 16px 0 !important;
     flex: none !important;
     width: 100% !important;
-    height: 100% !important;
-    min-width: 100% !important;
+    height: 340px !important;
+    min-width: unset !important;
     max-width: 100% !important;
     aspect-ratio: unset !important;
     border-radius: 24px !important;
@@ -4185,6 +4193,13 @@ body {
     justify-content: space-between !important;
     box-sizing: border-box !important;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+    /* z-index driven by --card-index CSS custom property */
+    z-index: var(--card-index) !important;
+    /* Scale: first card smallest (most depth), last card full size */
+    transform: scale(calc(0.92 + (var(--card-index) - 1) * 0.027)) !important;
+    transform-origin: top center !important;
+    will-change: transform !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
   }
 
   /* Desktop Themes Preserved on Mobile */

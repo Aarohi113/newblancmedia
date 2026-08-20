@@ -191,27 +191,19 @@ export default function Services() {
     return index * 310;
   };
 
-  // Mobile Y translation: Next card slides from bottom on top of previous card
+  // Mobile: pure CSS sticky stack — no JS-driven Y/opacity/zIndex needed
   const getCardY = (index) => {
     if (!isMobile) return 0;
-    if (index <= step) {
-      return 0;
-    }
-    return 460; // start offscreen below container
+    return 0; // CSS sticky handles positioning on mobile
   };
 
   const getCardOpacity = (index) => {
-    if (!isMobile) return 1;
-    if (index === 0) return 1;
-    if (index <= step) return 1;
-    return 0; // Hide unrevealed cards at bottom
+    return 1; // Always visible — CSS scale creates depth illusion
   };
 
   const getCardZIndex = (index) => {
     if (!isMobile) return 4 - index;
-    if (index === 0) return 10;
-    if (index <= step) return (index + 1) * 10;
-    return 1; // Unrevealed cards stay underneath Card 0 (zIndex 10)
+    return undefined; // CSS --card-index variable handles z-index on mobile
   };
 
   return (
@@ -240,16 +232,15 @@ export default function Services() {
           className="bento-stack-wrapper"
           animate={{
             x: getCardsWrapperX(),
-            ...(isMobile ? { height: '390px' } : {})
           }}
           transition={springTransition}
         >
           {/* Card 1 */}
           <motion.div
             className="bento-card card-a"
-            animate={{ x: getCardX(0), y: getCardY(0), opacity: getCardOpacity(0) }}
+            animate={isMobile ? {} : { x: getCardX(0), y: 0, opacity: 1 }}
             transition={springTransition}
-            style={{ zIndex: getCardZIndex(0) }}
+            style={{ zIndex: getCardZIndex(0), '--card-index': 1 }}
           >
             <div className="card-bottom-content">
               <span className="big-stat-num">200%</span>
@@ -260,9 +251,9 @@ export default function Services() {
           {/* Card 2 */}
           <motion.div
             className="bento-card card-b"
-            animate={{ x: getCardX(1), y: getCardY(1), opacity: getCardOpacity(1) }}
+            animate={isMobile ? {} : { x: getCardX(1), y: 0, opacity: 1 }}
             transition={springTransition}
-            style={{ zIndex: getCardZIndex(1) }}
+            style={{ zIndex: getCardZIndex(1), '--card-index': 2 }}
           >
             <div className="card-stat-header roas-header">
               <span className="roas-num">-35%</span>
@@ -300,9 +291,9 @@ export default function Services() {
           {/* Card 3 */}
           <motion.div
             className="bento-card card-c"
-            animate={{ x: getCardX(2), y: getCardY(2), opacity: getCardOpacity(2) }}
+            animate={isMobile ? {} : { x: getCardX(2), y: 0, opacity: 1 }}
             transition={springTransition}
-            style={{ zIndex: getCardZIndex(2) }}
+            style={{ zIndex: getCardZIndex(2), '--card-index': 3 }}
           >
             <div className="card-stat-header roas-header">
               <div className="stat-num-row">
@@ -343,9 +334,9 @@ export default function Services() {
           {/* Card 4 */}
           <motion.div
             className="bento-card card-d"
-            animate={{ x: getCardX(3), y: getCardY(3), opacity: getCardOpacity(3) }}
+            animate={isMobile ? {} : { x: getCardX(3), y: 0, opacity: 1 }}
             transition={springTransition}
-            style={{ zIndex: getCardZIndex(3) }}
+            style={{ zIndex: getCardZIndex(3), '--card-index': 4 }}
           >
             <div className="card-stat-header roas-header">
               <span className="roas-num">3X</span>
