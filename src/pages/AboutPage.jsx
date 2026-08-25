@@ -31,19 +31,15 @@ const slideInLeft = {
 
 export default function AboutPage() {
   // Typewriter animation state for hero heading
-  const line1Text = "WE BUILD DIGITAL SYSTEMS ";
-  const line2Text = "THAT DRIVE REAL GROWTH";
+  const line1Text = "WHO WE ARE";
   const [displayedLine1, setDisplayedLine1] = useState("");
-  const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
     setDisplayedLine1("");
-    setDisplayedLine2("");
     setIsTypingComplete(false);
 
     let idx1 = 0;
-    let idx2 = 0;
 
     const timer1 = setInterval(() => {
       if (idx1 < line1Text.length) {
@@ -51,17 +47,9 @@ export default function AboutPage() {
         idx1++;
       } else {
         clearInterval(timer1);
-        const timer2 = setInterval(() => {
-          if (idx2 < line2Text.length) {
-            setDisplayedLine2(line2Text.slice(0, idx2 + 1));
-            idx2++;
-          } else {
-            clearInterval(timer2);
-            setIsTypingComplete(true);
-          }
-        }, 55);
+        setIsTypingComplete(true);
       }
-    }, 50);
+    }, 70);
 
     return () => {
       clearInterval(timer1);
@@ -69,11 +57,11 @@ export default function AboutPage() {
   }, []);
 
   const renderLine1Content = () => {
-    if (displayedLine1.length <= 3) {
+    if (displayedLine1.length <= 4) {
       return displayedLine1;
     }
-    const prefix = displayedLine1.slice(0, 3);
-    const highlight = displayedLine1.slice(3);
+    const prefix = displayedLine1.slice(0, 4);
+    const highlight = displayedLine1.slice(4);
     return (
       <>
         {prefix}
@@ -100,19 +88,15 @@ export default function AboutPage() {
                 variants={fadeInUp}
                 custom={0.25}
               >
-                <div className="flair-hero-tag-pill">
+                <div className="flair-hero-tag-pill about-hero-tag-pill">
                   <span className="seo-pill-dot" />
-                  <span>WHO WE ARE</span>
+                  <span>ABOUT BLANC</span>
                 </div>
 
-                <h2 className="flair-hero-subheading typewriter-heading">
+                <h2 className="flair-hero-subheading typewriter-heading about-hero-heading">
                   <span className="hero-sub-line">
                     {renderLine1Content()}
-                    {displayedLine2.length === 0 && <span className="typewriter-cursor">|</span>}
-                  </span>
-                  <span className="hero-sub-line">
-                    {displayedLine2}
-                    {displayedLine2.length > 0 && !isTypingComplete && <span className="typewriter-cursor">|</span>}
+                    {!isTypingComplete && <span className="typewriter-cursor">|</span>}
                   </span>
                 </h2>
 

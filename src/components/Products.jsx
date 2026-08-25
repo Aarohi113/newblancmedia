@@ -247,8 +247,10 @@ export default function Products() {
             </picture>
           </motion.div>
 
-          {/* Bottom Gradient Fade Overlay for Soft Image Dissolve */}
+          {/* Gradient Fade Overlays for Soft Image Edge & Corner Dissolve */}
           <div className="products-bottom-fade" />
+          <div className="products-right-fade" />
+          <div className="products-top-right-fade" />
         </div>
       </div>
     </section>
