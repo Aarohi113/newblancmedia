@@ -18,8 +18,8 @@ const fadeInUp = {
 
 export default function WebDevelopmentPage() {
   // Typewriter animation state for hero heading
-  const line1Text = "Your Website Should Do ";
-  const line2Text = "More Than Look Good.";
+  const line1Text = "YOUR WEBSITE SHOULD DO ";
+  const line2Text = "MORE THAN LOOK GOOD";
   const [displayedLine1, setDisplayedLine1] = useState("");
   const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);

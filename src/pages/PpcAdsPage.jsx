@@ -20,8 +20,8 @@ export default function PpcAdsPage() {
   const [activeFaq, setActiveFaq] = useState(0);
 
   // Typewriter animation state for hero heading
-  const line1Text = "Don’t Just Run Ads. ";
-  const line2Text = "Run Ads That Move Business.";
+  const line1Text = "Don’t Just Run Ads ";
+  const line2Text = "Run Ads That Move Business";
   const [displayedLine1, setDisplayedLine1] = useState("");
   const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);

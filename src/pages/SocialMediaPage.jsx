@@ -20,8 +20,8 @@ export default function SocialMediaPage() {
   const [activeFaq, setActiveFaq] = useState(0);
 
   // Typewriter animation state for hero heading
-  const line1Text = "Don’t Just Post.";
-  const line2Text = "Build a Brand People Remember.";
+  const line1Text = "DON'T JUST POST";
+  const line2Text = "BUILD A BRAND THAT PEOPLE REMEMBER";
   const [displayedLine1, setDisplayedLine1] = useState("");
   const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);
@@ -161,11 +161,7 @@ export default function SocialMediaPage() {
               viewport={{ once: true, amount: 0.2 }}
               variants={fadeInUp}
             >
-              <div className="dual-card-badge">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                </svg>
-              </div>
+
 
               <motion.h3
                 className="dual-card-title"

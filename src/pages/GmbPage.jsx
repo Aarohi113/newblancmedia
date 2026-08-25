@@ -20,8 +20,8 @@ export default function GmbPage() {
   const [activeFaq, setActiveFaq] = useState(0);
 
   // Typewriter animation state for hero heading
-  const line1Text = "Be Seen Where Your";
-  const line2Text = "Customers Are Looking.";
+  const line1Text = "BE SEEN WHERE YOUR";
+  const line2Text = "CUSTOMERS ARE LOOKING";
   const [displayedLine1, setDisplayedLine1] = useState("");
   const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);

@@ -31,8 +31,8 @@ const slideInLeft = {
 
 export default function AboutPage() {
   // Typewriter animation state for hero heading
-  const line1Text = "We Build Digital Systems ";
-  const line2Text = "That Drive Real Growth.";
+  const line1Text = "WE BUILD DIGITAL SYSTEMS ";
+  const line2Text = "THAT DRIVE REAL GROWTH";
   const [displayedLine1, setDisplayedLine1] = useState("");
   const [displayedLine2, setDisplayedLine2] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);

@@ -2731,6 +2731,8 @@ body {
 /* Right Details Column */
 .footer-details-col {
   display: flex;
+  justify-content: flex-end;
+  justify-self: end;
   gap: 4rem;
 }
 
@@ -2855,12 +2857,12 @@ body {
 /* FLAIR HERO ARCHITECTURE */
 .flair-hero-section {
   position: relative;
-  height: 85vh;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 3.5rem 0 3.5rem 0;
   text-align: center;
   background: linear-gradient(180deg, #FAFAFA 0%, #E5E5E8 55%, #F4F4F4 100%);
   box-sizing: border-box;
@@ -2930,21 +2932,25 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.55rem 1.4rem;
+  padding: 0.6rem 1.5rem;
   background: rgba(255, 85, 0, 0.08);
-  border: 1.5px solid rgba(255, 85, 0, 0.3);
+  border: 1.5px solid rgba(255, 85, 0, 0.35);
   border-radius: 100px;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-weight: 800;
   color: #FF5500;
   letter-spacing: 0.12em;
-  margin-bottom: 1.8rem;
-  box-shadow: 0 4px 20px rgba(255, 85, 0, 0.08);
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(255, 85, 0, 0.1);
+  position: relative;
+  z-index: 2;
 }
 
-.flair-hero-subheading {
+.flair-hero-subheading,
+.typewriter-heading {
   font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
-  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+  font-size: clamp(2.8rem, 5.2vw, 4.8rem);
   font-weight: 900;
   color: #111112;
   -webkit-text-stroke: unset;
@@ -4400,8 +4406,8 @@ body {
 
   .flair-hero-section {
     height: auto !important;
-    min-height: 72vh !important;
-    padding: 3.8rem 0 3.2rem 0 !important;
+    min-height: 80vh !important;
+    padding: 3rem 0 3rem 0 !important;
   }
 
   .flair-hero-header {
@@ -4410,15 +4416,16 @@ body {
   }
 
   .flair-hero-tag-pill {
-    margin-bottom: 1.4rem !important;
-    padding: 0.5rem 1.3rem !important;
-    font-size: 0.8rem !important;
+    margin-bottom: 1.5rem !important;
+    padding: 0.55rem 1.4rem !important;
+    font-size: 0.82rem !important;
   }
 
-  .flair-hero-subheading {
+  .flair-hero-subheading,
+  .typewriter-heading {
     margin-bottom: 1.2rem !important;
     line-height: 1.18 !important;
-    font-size: clamp(2.1rem, 7.2vw, 3rem) !important;
+    font-size: clamp(2.4rem, 7.8vw, 3.6rem) !important;
   }
 
   .flair-hero-lead-text {
