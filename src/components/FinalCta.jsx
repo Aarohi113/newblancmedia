@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -15,10 +16,14 @@ const fadeInUp = {
 };
 
 export default function FinalCta({
-  title = <>Speak to our financing<br />experts</>,
-  desc = "Our team is here to answer your questions, review your business needs, and guide you toward the right funding option—so you can move forward with confidence",
-  buttonText = "Talk to finance"
+  eyebrow = "Digital Marketing Agency",
+  title = <>Let’s Connect and<br />Create Digital Success</>,
+  desc = "Our team is here to answer your questions, review your business needs, and guide you toward the right solution—so you can move forward with confidence.",
+  buttonText = "Let's Connect"
 }) {
+  const location = useLocation();
+  const contactHref = location.pathname === '/' ? '#contact' : '/#contact';
+
   return (
     <section className="bottom-final-cta">
       <motion.div
@@ -29,6 +34,12 @@ export default function FinalCta({
         variants={fadeInUp}
         custom={0.1}
       >
+        {eyebrow && (
+          <span className="eyebrow eyebrow--static final-cta-eyebrow">
+            <span>{eyebrow}</span>
+          </span>
+        )}
+
         <h2 className="final-cta-title">
           {title}
         </h2>
@@ -56,7 +67,7 @@ export default function FinalCta({
                 alt="Expert Avatar 3"
                 className="expert-avatar"
               />
-              <a href="#contact" className="avatar-arrow-circle" aria-label="Explore Experts">
+              <a href={contactHref} className="avatar-arrow-circle" aria-label="Explore Experts">
                 <span>→</span>
               </a>
             </div>
@@ -64,7 +75,7 @@ export default function FinalCta({
 
           <span className="action-bar-divider" />
 
-          <a href="#contact" className="talk-to-finance-btn">
+          <a href={contactHref} className="talk-to-finance-btn">
             <span>{buttonText}</span>
             <span className="talk-arrow">→</span>
           </a>
@@ -73,4 +84,5 @@ export default function FinalCta({
     </section>
   );
 }
+
 

@@ -309,11 +309,7 @@ export default function AboutPage() {
 
 
       {/* FINAL CTA */}
-      <FinalCta
-        title="Ready to Elevate Your Brand Strategy?"
-        desc="Let’s create digital experiences that move your business forward"
-        buttonText="get in touch"
-      />
+      <FinalCta />
 
       {/* FOOTER */}
       <Footer />

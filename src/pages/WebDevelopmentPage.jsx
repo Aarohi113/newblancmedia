@@ -273,11 +273,7 @@ export default function WebDevelopmentPage() {
       </section>
 
       {/* FINAL CTA */}
-      <FinalCta
-        title="Ready to Build a High-Converting Website?"
-        desc="Let’s engineer a web experience that sets your brand apart"
-        buttonText="let's build"
-      />
+      <FinalCta />
 
       {/* FOOTER */}
       <Footer />

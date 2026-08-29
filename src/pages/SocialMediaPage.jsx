@@ -287,11 +287,7 @@ export default function SocialMediaPage() {
       </section>
 
       {/* FINAL CTA */}
-      <FinalCta
-        title="Ready to Make Your Brand Impossible to Ignore?"
-        desc="Let’s build your social presence with a strategy that actually makes sense"
-        buttonText="let's build"
-      />
+      <FinalCta />
 
       {/* FOOTER */}
       <Footer />

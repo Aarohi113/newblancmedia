@@ -290,10 +290,7 @@ export default function PpcAdsPage() {
       </section>
 
       {/* FINAL CTA */}
-      <FinalCta
-        title="Ready to Make Your Ad Budget Work Smarter?"
-        desc="Let’s build a campaign around your business goals."
-      />
+      <FinalCta />
 
       {/* FOOTER (Reused from Home) */}
       <Footer />
